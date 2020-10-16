@@ -51,10 +51,6 @@
     top as %1%
 ]
 
-[ ref 0
-    top + 1 +
-]
-
 [ literal 0
     lit # %1% ?.
 ]

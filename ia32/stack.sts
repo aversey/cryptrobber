@@ -2,6 +2,13 @@ defasm top
     # 54 ?'                             ; push esp
 next
 
+defasm ref
+    # 58 ?'                             ; pop eax
+    # c1 ?' # e0 ?' # 2 ?'              ; shl eax, 2
+    # 01 ?' # e0 ?'                     ; add eax, esp
+    # 50 ?'                             ; push eax
+next
+
 defasm get
     # 58 ?'                             ; pop eax
     # 8b ?' # 4 ?' # 84 ?'              ; mov eax, [esp + 4 * eax]
