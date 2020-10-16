@@ -1,0 +1,29 @@
+module ia32/elf/begin.sts
+module cipher.sts
+
+defword encbyte
+    key dup if
+        drop
+        cipher
+        1 1
+    fi 0 = if
+        drop 0
+    fi
+exit
+
+defword encrypt
+    encbyte if encrypt fi
+exit
+
+defarr passwd 3
+
+set_entry
+    31 passwd !
+    32 passwd 1 + !
+    33 passwd 2 + !
+    passwd 3 ciphernew
+    encrypt
+    cipherdel
+quit
+
+module ia32/elf/end.sts

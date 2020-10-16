@@ -1,0 +1,14 @@
+; cipher is password string (pointer to start and length) and position in it
+
+defword ciphernew
+    0
+exit
+
+defword cipher ; ... passwd plen ppos key
+    3 get 2 get + @ xor      ; key = key ^ passwd[ppos]
+    over 1 + 3 get mod 2 set ; ppos = (ppos + 1) % plen
+exit
+
+defword cipherdel
+    drop drop drop
+exit
