@@ -1,50 +1,31 @@
 defasm quit
-; mov eax, 1
-# b8 ?' # 1 ?.
-; xor ebx, ebx
-# 31 ?' # db ?'
-; int 0x80
-# cd ?' # 80 ?'
+    # b8 ?' # 1 ?.             ; mov eax, 1
+    # 31 ?' # db ?'            ; xor ebx, ebx
+    # cd ?' # 80 ?'            ; int 0x80
+; no need in next since this is the last instruction
 
 _data_segment ?choose
-?$ ?? _io_buffer
-# 0 ?'
+    ?$ ?? _iobuf # 0 ?'
 _code_segment ?choose
 
 defasm key
-; mov eax, 3
-# b8 ?' # 3 ?.
-; xor ebx, ebx
-# 31 ?' # db ?'
-; mov ecx, _io_buffer
-# b9 ?' _io_buffer ?.
-; mov edx, 1
-# ba ?' # 1 ?.
-; int 0x80
-# cd ?' # 80 ?'
-; xor ebx, ebx
-# 31 ?' # db ?'
-; mov bl, [_io_buffer]
-# 8a ?' # 1d ?' _io_buffer ?.
-; push ebx
-# 53 ?'
-; push eax
-# 50 ?'
+    # b8 ?' # 3 ?.             ; mov eax, 3
+    # 31 ?' # db ?'            ; xor ebx, ebx
+    # b9 ?' _iobuf ?.          ; mov ecx, _iobuf
+    # ba ?' # 1 ?.             ; mov edx, 1
+    # cd ?' # 80 ?'            ; int 0x80
+    # 31 ?' # db ?'            ; xor ebx, ebx
+    # 8a ?' # 1d ?' _iobuf ?.  ; mov bl, [_iobuf]
+    # 53 ?'                    ; push ebx
+    # 50 ?'                    ; push eax
 next
 
 defasm emit
-; pop eax
-# 58 ?'
-; mov [_io_buffer], al
-# a2 ?' _io_buffer ?.
-; mov eax, 4
-# b8 ?' # 4 ?.
-; mov ebx, 1
-# bb ?' # 1 ?.
-; mov ecx, _io_buffer
-# b9 ?' _io_buffer ?.
-; mov edx, 1
-# ba ?' # 1 ?.
-; int 0x80
-# cd ?' # 80 ?'
+    # 58 ?'                    ; pop eax
+    # a2 ?' _iobuf ?.          ; mov [_iobuf], al
+    # b8 ?' # 4 ?.             ; mov eax, 4
+    # bb ?' # 1 ?.             ; mov ebx, 1
+    # b9 ?' _iobuf ?.          ; mov ecx, _iobuf
+    # ba ?' # 1 ?.             ; mov edx, 1
+    # cd ?' # 80 ?'            ; int 0x80
 next

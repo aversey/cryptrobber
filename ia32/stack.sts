@@ -1,25 +1,18 @@
 defasm drop
-; pop eax
-# 58 ?'
+    # 58 ?'                        ; pop eax
 next
 
 defasm dup
-; push dword [esp]
-# ff ?' # 34 ?' # 24 ?'
+    # ff ?' # 34 ?' # 24 ?'        ; push dword [esp]
 next
 
 defasm over
-; push dword [esp + 4]
-# ff ?' # 74 ?' # 24 ?' # 4 ?'
+   # ff ?' # 74 ?' # 24 ?' # 4 ?'  ; push dword [esp + 4]
 next
 
 defasm swap
-; pop eax
-# 58 ?'
-; pop ebx
-# 5b ?'
-; push eax
-# 50 ?'
-; push ebx
-# 53 ?'
+    # 58 ?'                        ; pop eax
+    # 5b ?'                        ; pop ebx
+    # 50 ?'                        ; push eax
+    # 53 ?'                        ; push ebx
 next
