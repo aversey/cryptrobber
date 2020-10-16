@@ -24,6 +24,6 @@ set_entry
     passwd 3 ciphernew
     encrypt
     cipherdel
-quit
+sys_exit
 
 module ia32/elf/end.sts

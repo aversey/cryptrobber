@@ -1,5 +1,5 @@
 all: cryptrobber encrypt
-.PHONY: all clean encrpyt cryptrobber
+.PHONY: all clean encrypt cryptrobber
 
 cryptrobber: smack strans
 	./smack main.sts | ./strans > $@

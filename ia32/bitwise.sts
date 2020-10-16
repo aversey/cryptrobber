@@ -1,0 +1,6 @@
+defasm xor
+    # 5b ?'                    ; pop ebx
+    # 58 ?'                    ; pop eax
+    # 31 ?' # d8 ?'            ; xor eax, ebx
+    # 50 ?'                    ; push eax
+next
