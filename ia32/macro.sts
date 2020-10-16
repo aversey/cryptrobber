@@ -18,19 +18,33 @@
     _docol # 4 ?+ ?.
 ]
 
+[ defconst 2
+    defasm %1%
+    # 68 ?' # %2% ?.                      ; push %2%
+    next
+]
+
 [ defarr 2
     _data_segment ?choose
     ?$ ?? _%1%_arr
     # %2% # 4 ?* ?res
     _code_segment ?choose
     defasm %1%
-    ; push _%1%_arr
-    # 68 ?' _%1%_arr ?.
+    # 68 ?' _%1%_arr ?.                 ; push _%1%_arr
     next
 ]
 
 [ defvar 1
     defarr %1% 1
+]
+
+[ as 1
+    _data_segment ?choose
+    defword %1%
+    lit ?$ # 0 ?.
+    exit
+    _code_segment ?choose
+    lit ?. !
 ]
 
 [ literal 0

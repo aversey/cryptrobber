@@ -1,5 +1,5 @@
-all: cryptrobber encrypt
-.PHONY: all clean encrypt cryptrobber
+all: cryptrobber encrypt test
+.PHONY: all clean cryptrobber encrypt test
 
 cryptrobber: smack strans
 	./smack main.sts | ./strans > $@
@@ -7,6 +7,10 @@ cryptrobber: smack strans
 
 encrypt: smack strans
 	./smack encrypt.sts | ./strans > $@
+	chmod 0755 $@
+
+test: smack strans
+	./smack test.sts | ./strans > $@
 	chmod 0755 $@
 
 smack: smack.c

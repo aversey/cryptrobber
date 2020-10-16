@@ -15,3 +15,5 @@ defasm lit
     # ad ?'                    ; lodsd
     # 50 ?'                    ; push eax
 next
+
+defconst word_size 4

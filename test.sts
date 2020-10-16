@@ -1,0 +1,11 @@
+module ia32/elf/begin.sts
+
+set_entry
+32
+31
+top as what
+what @ sys_write
+what word_size + @ sys_write
+sys_exit
+
+module ia32/elf/end.sts

@@ -5,7 +5,7 @@ defasm sys_exit
 ; no need in next since this is the last instruction
 
 _data_segment ?choose
-    ?$ ?? _iobuf # 0 ?'
+    ?$ ?? _iobuf # 0 ?.
 _code_segment ?choose
 
 defasm sys_read

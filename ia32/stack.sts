@@ -1,3 +1,7 @@
+defasm top
+    # 54 ?'                             ; push esp
+next
+
 defasm get
     # 58 ?'                             ; pop eax
     # 8b ?' # 4 ?' # 84 ?'              ; mov eax, [esp + 4 * eax]
