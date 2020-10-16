@@ -4,7 +4,7 @@ module cipher.sts
 defword encbyte
     sys_read dup if
         drop
-        cipher
+        cipher sys_write
         1 1
     fi 0 = if
         drop 0
