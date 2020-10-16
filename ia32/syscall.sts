@@ -1,0 +1,50 @@
+defasm quit
+; mov eax, 1
+# b8 ?' # 1 ?.
+; xor ebx, ebx
+# 31 ?' # db ?'
+; int 0x80
+# cd ?' # 80 ?'
+
+_data_segment ?choose
+?$ ?? _io_buffer
+# 0 ?'
+_code_segment ?choose
+
+defasm key
+; mov eax, 3
+# b8 ?' # 3 ?.
+; xor ebx, ebx
+# 31 ?' # db ?'
+; mov ecx, _io_buffer
+# b9 ?' _io_buffer ?.
+; mov edx, 1
+# ba ?' # 1 ?.
+; int 0x80
+# cd ?' # 80 ?'
+; xor ebx, ebx
+# 31 ?' # db ?'
+; mov bl, [_io_buffer]
+# 8a ?' # 1d ?' _io_buffer ?.
+; push ebx
+# 53 ?'
+; push eax
+# 50 ?'
+next
+
+defasm emit
+; pop eax
+# 58 ?'
+; mov [_io_buffer], al
+# a2 ?' _io_buffer ?.
+; mov eax, 4
+# b8 ?' # 4 ?.
+; mov ebx, 1
+# bb ?' # 1 ?.
+; mov ecx, _io_buffer
+# b9 ?' _io_buffer ?.
+; mov edx, 1
+# ba ?' # 1 ?.
+; int 0x80
+# cd ?' # 80 ?'
+next

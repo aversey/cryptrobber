@@ -1,0 +1,50 @@
+[ next 0
+	# ad ?' # ff ?' # 20 ?'
+]
+
+[ defasm 1
+	[ %1% 0
+		_%0% ?.
+	\]
+	?$ ?? _%1%
+	?$ # 4 ?+ ?.
+]
+
+[ defword 1
+	[ %1% 0
+		_%0% ?.
+	\]
+	?$ ?? _%1%
+	_docol # 4 ?+ ?.
+]
+
+[ defarr 2
+	_data_segment ?choose
+	?$ ?? _%1%_arr
+	# %2% # 4 ?* ?res
+	_code_segment ?choose
+	defasm %1%
+	; push _%1%_arr
+	# 68 ?' _%1%_arr ?.
+	next
+]
+
+[ defvar 1
+	defarr %1% 1
+]
+
+[ literal 0
+	lit # %1% ?.
+]
+
+[ set_entry 0
+	?$ _threaded_code_entry ?! 
+]
+
+[ if 0
+	0branch ?$ # 0 ?.
+]
+
+[ fi 0
+	?$ ?swap ?!
+]

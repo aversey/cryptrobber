@@ -1,0 +1,21 @@
+; Code segment alignment
+# 1000 ?$ # 1000 ?mod ?- ?dup ?res
+
+; Code segment ELF sizes
+?$ ?$$ ?- _code_segment_file_size ?!
+?$ ?$$ ?- _code_segment_memory_size ?!
+
+; Data segment ELF offset
+?$ ?$$ ?-
+_code_segment ?choose
+_data_segment_offset ?!
+
+; Data segment ELF sizes
+_data_segment ?choose
+?$ ?$$ ?-
+_code_segment ?choose
+_data_segment_file_size ?!
+_data_segment ?choose
+?$ ?$$ ?-
+_code_segment ?choose
+_data_segment_memory_size ?!

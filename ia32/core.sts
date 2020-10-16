@@ -1,0 +1,26 @@
+defasm docol
+; sub ebp, 4
+# 83 ?' # ed ?' # 4 ?'
+; mov [ebp], esi
+# 89 ?' # 75 ?' # 0 ?'
+; add eax, 4
+# 83 ?' # c0 ?' # 4 ?'
+; mov esi, eax
+# 89 ?' # c6 ?'
+; go next
+# ad ?' # ff ?' # 20 ?'
+next
+
+defasm exit
+; mov esi, [ebp]
+# 8b ?' # 75 ?' # 0 ?'
+; add ebp, 4
+# 83 ?' # c5 ?' # 4 ?'
+next
+
+defasm lit
+; lodsd
+# ad ?'
+; push eax
+# 50 ?'
+next

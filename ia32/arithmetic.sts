@@ -1,0 +1,103 @@
+defasm +
+; pop eax
+# 58 ?'
+; add [esp], eax
+# 01 ?' # 04 ?' # 24 ?'
+next
+
+defasm -
+; pop eax
+# 58 ?'
+; sub [esp], eax
+# 29 ?' # 04 ?' # 24 ?'
+next
+
+defasm /
+; pop ebx
+# 5b ?'
+; pop eax
+# 58 ?'
+; xor edx, edx
+# 31 ?' # d2 ?'
+; div ebx
+# f7 ?' # f3 ?'
+; push edx
+# 52 ?'
+; push eax
+# 50 ?'
+next
+
+defasm =
+; pop ebx
+# 5b ?'
+; pop eax
+# 58 ?'
+; cmp eax, ebx
+# 39 ?' # d8 ?'
+; sete al
+# 0f ?' # 94 ?' # c0 ?'
+; movzx eax, al
+# 0f ?' # b6 ?' # c0 ?'
+; push eax
+# 50 ?'
+next
+
+defasm !=
+; pop ebx
+# 5b ?'
+; pop eax
+# 58 ?'
+; cmp eax, ebx
+# 39 ?' # d8 ?'
+; sete al
+# 0f ?' # 95 ?' # c0 ?'
+; movzx eax, al
+# 0f ?' # b6 ?' # c0 ?'
+; push eax
+# 50 ?'
+next
+
+defasm !=
+; pop ebx
+# 5b ?'
+; pop eax
+# 58 ?'
+; cmp eax, ebx
+# 39 ?' # d8 ?'
+; sete al
+# 0f ?' # 95 ?' # c0 ?'
+; movzx eax, al
+# 0f ?' # b6 ?' # c0 ?'
+; push eax
+# 50 ?'
+next
+
+defasm <
+; pop ebx
+# 5b ?'
+; pop eax
+# 58 ?'
+; cmp eax, ebx
+# 39 ?' # d8 ?'
+; setb al
+# 0f ?' # 92 ?' # c0 ?'
+; movzx eax, al
+# 0f ?' # b6 ?' # c0 ?'
+; push eax
+# 50 ?'
+next
+
+defasm >
+; pop ebx
+# 5b ?'
+; pop eax
+# 58 ?'
+; cmp eax, ebx
+# 39 ?' # d8 ?'
+; seta al
+# 0f ?' # 97 ?' # c0 ?'
+; movzx eax, al
+# 0f ?' # b6 ?' # c0 ?'
+; push eax
+# 50 ?'
+next

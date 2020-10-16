@@ -1,0 +1,25 @@
+defasm drop
+; pop eax
+# 58 ?'
+next
+
+defasm dup
+; push dword [esp]
+# ff ?' # 34 ?' # 24 ?'
+next
+
+defasm over
+; push dword [esp + 4]
+# ff ?' # 74 ?' # 24 ?' # 4 ?'
+next
+
+defasm swap
+; pop eax
+# 58 ?'
+; pop ebx
+# 5b ?'
+; push eax
+# 50 ?'
+; push ebx
+# 53 ?'
+next

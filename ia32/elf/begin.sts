@@ -1,0 +1,127 @@
+?create ?? _code_segment
+_code_segment ?choose
+
+# 08048000 ?org
+# 4 ?size
+# 0 ?endianness
+
+?create ?? _data_segment
+_data_segment ?choose
+
+# 09048000 ?org
+# 4 ?size
+# 0 ?endianness
+
+_code_segment ?choose
+
+; ELF header
+; EI_MAG - ELF magic number
+# 7f ?' # 45 ?' # 4c ?' # 46 ?'
+; EI_CLASS - 32-bit format
+# 1 ?'
+; EI_DATA - little-endiann
+# 1 ?'
+; EI_VERSION - current ELF header version
+# 1 ?'
+; EI_OSABI - Linux ABI
+# 3 ?'
+; EI_ABIVERSION - none
+# 0 ?'
+; EI_PAD - padding
+# 7 ?res
+; Executable file type
+# 2 ?2.
+; IA-32 architecture
+# 3 ?2.
+; ELF version
+# 1 ?4.
+; Entry point
+?$ ?? _elf_entry
+# 0 ?4.
+; Program headers offset
+# 34 ?4.
+; Section headers offset
+# 0 ?4.
+; Extra flags
+# 0 ?4.
+; ELF header size
+# 34 ?2.
+; Program header size
+# 20 ?2.
+; Number of program headers
+# 2 ?2.
+; Section header size
+# 28 ?2.
+; Number of section headers
+# 0 ?2.
+; Section name section index
+# 0 ?2.
+
+; ELF CODE PROGRAM HEADER
+; Segment type
+# 1 ?4.
+; Segment offset
+# 0 ?4.
+; Segment virtual address
+?$$ ?4.
+; Segment physical address
+?$$ ?4.
+; Segment file size
+?$ ?? _code_segment_file_size
+# 0 ?4.
+; Segment memory size
+?$ ?? _code_segment_memory_size
+# 0 ?4.
+; Segment flags
+# 5 ?4.
+; Segment alignment
+# 1000 ?4.
+
+; ELF DATA PROGRAM HEADER
+; Segment type
+# 1 ?4.
+; Segment offset
+?$ ?? _data_segment_offset
+# 0 ?4.
+; Segment virtual address
+_data_segment ?choose
+?$$
+_code_segment ?choose
+?4.
+; Segment physical address
+_data_segment ?choose
+?$$
+_code_segment ?choose
+?4.
+; Segment file size
+?$ ?? _data_segment_file_size
+# 0 ?4.
+; Segment memory size
+?$ ?? _data_segment_memory_size
+# 0 ?4.
+; Segment flags
+# 6 ?4.
+; Segment alignment
+# 1000 ?4.
+
+; Return stack
+_data_segment ?choose
+1000 ?res
+?$ ?dup ?? _return_stack
+_code_segment ?choose
+
+; PROGRAM ENTRY CODE
+?$ _elf_entry ?!
+; mov ebp, _return_stack
+# bd ?'
+_return_stack ?.
+; mov esi, _threaded_code_entry
+# be ?'
+?$ ?? _threaded_code_entry
+# 0 ?.
+; lodsd
+# ad ?'
+; jmp dword [eax]
+# ff ?' # 20 ?'
+
+module ia32/ia32.sts
