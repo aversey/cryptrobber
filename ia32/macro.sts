@@ -48,3 +48,25 @@
 [ fi 0
     ?$ ?swap ?!
 ]
+
+[ else 0
+    branch ?$ # 0 ?.
+    ?swap ?$ ?swap ?!
+]
+
+[ do 0
+    ?$
+]
+
+[ untilod 0
+    0branch ?.
+]
+
+[ until 0
+    0 = 0branch ?$ # 0 ?.
+]
+
+[ od 0
+    branch ?swap ?.
+    ?$ ?swap ?!
+]

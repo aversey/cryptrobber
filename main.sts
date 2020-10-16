@@ -1,8 +1,14 @@
 module ia32/elf/begin.sts
 
 set_entry
-    30 31 32
-    33 0 set 34 1 set 35 2 set
+
+    do
+        34 sys_write
+        sys_read
+    0 = until
+        sys_write
+    od
+    drop
 sys_exit
 
 module ia32/elf/end.sts
