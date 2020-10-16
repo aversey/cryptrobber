@@ -1,4 +1,4 @@
-defasm quit
+defasm sys_exit
     # b8 ?' # 1 ?.             ; mov eax, 1
     # 31 ?' # db ?'            ; xor ebx, ebx
     # cd ?' # 80 ?'            ; int 0x80
@@ -8,7 +8,7 @@ _data_segment ?choose
     ?$ ?? _iobuf # 0 ?'
 _code_segment ?choose
 
-defasm key
+defasm sys_read
     # b8 ?' # 3 ?.             ; mov eax, 3
     # 31 ?' # db ?'            ; xor ebx, ebx
     # b9 ?' _iobuf ?.          ; mov ecx, _iobuf
@@ -20,7 +20,7 @@ defasm key
     # 50 ?'                    ; push eax
 next
 
-defasm emit
+defasm sys_write
     # 58 ?'                    ; pop eax
     # a2 ?' _iobuf ?.          ; mov [_iobuf], al
     # b8 ?' # 4 ?.             ; mov eax, 4
