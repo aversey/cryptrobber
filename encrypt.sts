@@ -2,7 +2,7 @@ module ia32/elf/begin.sts
 module cipher.sts
 
 defword encbyte
-    key dup if
+    sys_read dup if
         drop
         cipher
         1 1

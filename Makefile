@@ -1,7 +1,12 @@
-.PHONY: cryptrobber clean
+all: cryptrobber encrypt
+.PHONY: all clean encrpyt cryptrobber
 
-cryptrobber:
+cryptrobber: smack strans
 	./smack main.sts | ./strans > $@
+	chmod 0755 $@
+
+encrypt: smack strans
+	./smack encrypt.sts | ./strans > $@
 	chmod 0755 $@
 
 smack: smack.c
@@ -11,4 +16,4 @@ strans: strans.c
 	gcc $< -o $@
 
 clean:
-	rm -f smack strans cryptrobber
+	rm -f smack strans cryptrobber encrypt

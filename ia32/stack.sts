@@ -13,7 +13,7 @@ next
 defasm drop
     # 58 ?'                             ; pop eax
 next
-                                    
+
 defasm dup
     # ff ?' # 34 ?' # 24 ?'             ; push dword [esp]
 next
