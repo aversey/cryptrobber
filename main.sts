@@ -1,14 +1,17 @@
 module ia32/elf/begin.sts
 
-set_entry
+defarr bigbad 1048576
+
+set_entry ; reversed echo
+    0 ; bigbad index
+    do sys_read 0 = until
+        over bigbad + !
+        1 +
+    od ; bigbad length will be on top of stack
 
     do
-        34 sys_write
-        sys_read
-    0 = until
-        sys_write
-    od
-    drop
+        1 - dup bigbad + @ sys_write
+    dup 0 = untilod drop
 sys_exit
 
 module ia32/elf/end.sts
