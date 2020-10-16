@@ -20,4 +20,4 @@ strans: strans.c
 	gcc $< -o $@
 
 clean:
-	rm -f smack strans cryptrobber encrypt
+	rm -f smack strans cryptrobber encrypt test

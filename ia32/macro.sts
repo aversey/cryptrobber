@@ -40,11 +40,19 @@
 
 [ as 1
     _data_segment ?choose
-    defword %1%
-    lit ?$ # 0 ?.
-    exit
+        defword %1%
+            lit ?$ # 0 ?.
+        exit
     _code_segment ?choose
     lit ?. !
+]
+
+[ local 1
+    top as %1%
+]
+
+[ ref 0
+    top + 1 +
 ]
 
 [ literal 0
@@ -83,4 +91,10 @@
 [ od 0
     branch ?swap ?.
     ?$ ?swap ?!
+]
+
+[ change 0
+    dup get
+    swap 2 get swap 2 + set
+    swap drop
 ]

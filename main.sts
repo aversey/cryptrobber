@@ -1,17 +1,30 @@
 module ia32/elf/begin.sts
+module cipher.sts
 
-defarr bigbad 65536 ; max size of input is 64KB
+defarr bigbad 64000 ; max size of input is 64 000 chars
+defarr bigbadres 64000 ; max size of output is 64 000 chars
+defarr passwd 3
 
-set_entry ; reversed echo
-    0 ; bigbad index
+set_entry
+    31 passwd !
+    32 passwd 1 + !
+    33 passwd 2 + !
+
+    0 local bigbadlen
     do sys_read 0 = until
         over bigbad + !
         1 +
-    od ; bigbad length will be on top of stack
+    od
 
-    do
-        1 - dup bigbad + @ sys_write
-    dup 0 = untilod drop
+    0 local cipherpos
+    0 do dup bigbadlen @ = until
+        dup bigbad + @ passwd 3 cipherpos cipher
+        over bigbadres + !
+    1 + od drop drop
+
+    0 do dup bigbadlen @ = until
+        dup bigbadres + @ sys_write
+    1 + od drop drop
 sys_exit
 
 module ia32/elf/end.sts

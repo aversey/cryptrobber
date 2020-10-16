@@ -17,6 +17,22 @@ defasm /
     # 50 ?'                    ; push eax
 next
 
+defasm mod
+    # 5b ?'                    ; pop ebx
+    # 58 ?'                    ; pop eax
+    # 31 ?' # d2 ?'            ; xor edx, edx
+    # f7 ?' # f3 ?'            ; div ebx
+    # 52 ?'                    ; push edx
+next
+
+defasm div
+    # 5b ?'                    ; pop ebx
+    # 58 ?'                    ; pop eax
+    # 31 ?' # d2 ?'            ; xor edx, edx
+    # f7 ?' # f3 ?'            ; div ebx
+    # 50 ?'                    ; push eax
+next
+
 defasm =
     # 5b ?'                    ; pop ebx
     # 58 ?'                    ; pop eax
