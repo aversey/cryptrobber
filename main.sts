@@ -1,6 +1,6 @@
 module ia32/elf/begin.sts
 
-defarr bigbad 1048576
+defarr bigbad 65536 ; max size of input is 64KB
 
 set_entry ; reversed echo
     0 ; bigbad index
