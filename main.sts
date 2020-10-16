@@ -1,24 +1,11 @@
 module ia32/elf/begin.sts
 
-defword keyecho
-    key if emit fi
-    drop
-exit
-
-defarr numstr 3
-defvar char
-
 set_entry
-    31 char !
-    char @ emit
-    32 numstr !
-    33 numstr 1 + !
-    34 numstr 2 + !
-    numstr @ emit
-    numstr 1 + @ emit
-    numstr 2 + @ emit
-    35 36 swap emit emit
-    keyecho
+    30 31 32
+    33 0 set 34 1 set 35 2 set
+    emit
+    emit
+    emit
 quit
 
 module ia32/elf/end.sts
