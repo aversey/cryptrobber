@@ -38,11 +38,12 @@ defword checktext
     checktext.length do 1 -
         dup word_size mul checktext.text + @
         dup dup 'z' > 0 = swap 'a' < 0 = mul if
-            dup 'z' swap - word_size mul checktext.fr + dup @ + 1 swap !
+            dup 'z' swap - word_size mul checktext.fr + dup @ 1 + swap !
+            checktext.count 1 + as checktext.count
         fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
-            dup 'Z' swap - word_size mul checktext.fr + dup @ + 1 swap !
+            dup 'Z' swap - word_size mul checktext.fr + dup @ 1 + swap !
+            checktext.count 1 + as checktext.count
         fi drop
-        checktext.count 1 + as checktext.count
     dup 0 = untilod drop
 ; ZERO DIVISION SHALL NOT PASS
 checktext.count 0 = if
