@@ -34,22 +34,23 @@ defword checktext
     0 0 0 0 0  0 0 0 0 0  0 0 0
     0 0 0 0 0  0 0 0 0 0  0 0 0 local checktext.fr
     ; count how much of each letter is in text:
-    0 as checktext.count
+    0 local checktext.count
     checktext.length do 1 -
         dup word_size mul checktext.text + @
         dup dup 'z' > 0 = swap 'a' < 0 = mul if
             dup 'z' swap - word_size mul checktext.fr + dup @ 1 + swap !
-            checktext.count 1 + as checktext.count
+            checktext.count @ 1 + checktext.count !
         fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
             dup 'Z' swap - word_size mul checktext.fr + dup @ 1 + swap !
-            checktext.count 1 + as checktext.count
+            checktext.count @ 1 + checktext.count !
         fi drop
     dup 0 = untilod drop
 ; ZERO DIVISION SHALL NOT PASS
-checktext.count 0 = if
+checktext.count 0 = if drop
     drop drop drop drop drop  drop drop drop drop drop  drop drop drop
     drop drop drop drop drop  drop drop drop drop drop  drop drop drop
 0 exit fi
+    checktext.count @ print_hex newline sys_write
     ; normalize:
     0 do dup 1a = until
             dup word_size mul checktext.fr + dup @ float_iload
@@ -61,6 +62,7 @@ checktext.count 0 = if
     freq_eng calcdist if 1 else
     0 fi
         ; Remove frequencies from stack:
+    sd
     sd sd sd sd sd  sd sd sd sd sd  sd sd sd
     sd sd sd sd sd  sd sd sd sd sd  sd sd sd
 exit
