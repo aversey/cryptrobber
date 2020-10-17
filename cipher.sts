@@ -1,10 +1,10 @@
 defword cipher
-    3 ref as byte
-    2 get as password
-    1 get as plen
-    0 get as pos
-    pos @ password + @ byte @ xor byte !
-    pos @ 1 + pos !
-    pos @ plen = if 0 pos ! fi
+    3 ref as cipher.byte
+    2 get as cipher.password
+    1 get as cipher.len
+    0 get as cipher.pos
+    cipher.pos @ cipher.password + @ cipher.byte @ xor cipher.byte !
+    cipher.pos @ 1 + cipher.pos !
+    cipher.pos @ cipher.len = if 0 cipher.pos ! fi
     drop drop drop
 exit

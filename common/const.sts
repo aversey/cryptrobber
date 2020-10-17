@@ -3,7 +3,7 @@ defconst '!' 21
 defconst '"' 22
 defconst '#' 23
 defconst '$' 24
-; '%' (25) symbol is reserved by smack
+defconst percent 25 ; '%' (25) symbol is reserved by smack
 defconst '&' 26
 defconst ''' 27
 defconst '(' 28

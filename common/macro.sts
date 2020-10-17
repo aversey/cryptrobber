@@ -3,7 +3,7 @@
 ]
 
 [ change 0
-    dup get
-    swap 2 get swap 2 + set
+    1 + dup get
+    swap 2 get swap set
     swap drop
 ]
