@@ -3,24 +3,10 @@ module ia32/float/float.sts
 
 set_entry
 float_init
-21 float_iload
 4 float_iload
-21 float_iload
-4 float_iload
-8 float_iload
-0 float_iload
-21 float_iload
-4 float_iload
-float_div
-float_istore
-float_div
-float_istore
-float_div
-float_istore
-float_div
-float_istore
-7 print_stack
-7 print_stack
+5 float_iload
+float_more
+4 print_stack
 sys_exit
 
 module ia32/elf/end.sts
