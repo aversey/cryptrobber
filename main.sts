@@ -1,6 +1,14 @@
 module ia32/elf/begin.sts
 module cipher.sts
 
+defword checktext
+    1
+exit
+
+defword keygen
+    drop 31 32 33 3
+exit
+
 set_entry
     ; read file into stack
     0 do sys_read 0 = until
@@ -8,25 +16,30 @@ set_entry
     od drop as length
     local ciphertext
 
-        ; -= MAIN LOOP BEGIN =- ;
-    ; place password ontop of stack
-    31 32 33 local password
-    3 as passlen
+    0 ; initial key is empty
+    do
+        ; generate next key to try
+        keygen as keylen local key
 
-    ; decipher text (length is the same as for ciphertext)
-    passlen 1 - length do 1 -
-        as pos local cipos
-            pos word_size mul ciphertext + @
-            password
-            passlen
-            cipos
-        cipher
-        swap pos
-    dup 0 = untilod drop drop
-    local plaintext
+        ; decipher text (length is the same as for ciphertext)
+        keylen 1 - length do 1 -
+            as textpos local pos
+                textpos word_size mul ciphertext + @
+                key
+                keylen
+                pos
+            cipher
+            swap textpos
+        dup 0 = untilod drop drop
+        local plaintext
 
-    ; todo: check deciphering attempt, exit if Ok
-        ; -= MAIN LOOP END =- ;
+        ; check deciphering attempt, exit if Ok
+    length checktext until
+        ; else remove the text from stack and place keylen back
+        0 do dup length = until
+            swap drop 1 +
+        od drop keylen
+    od
 
     ; output text (todo: and language)
     length do 1 -
