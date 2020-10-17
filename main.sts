@@ -45,19 +45,18 @@ defword checktext
             checktext.count @ 1 + checktext.count !
         fi drop
     dup 0 = untilod drop
+    1b print_stack newline sys_write
 ; ZERO DIVISION SHALL NOT PASS
 checktext.count 0 = if drop
     drop drop drop drop drop  drop drop drop drop drop  drop drop drop
     drop drop drop drop drop  drop drop drop drop drop  drop drop drop
 0 exit fi
-    checktext.count @ print_hex newline sys_write
     ; normalize:
     0 do dup 1a = until
             dup word_size mul checktext.fr + dup @ float_iload
             checktext.count float_iload
         float_div float_fstore swap !
     1 + od drop
-    1a print_stack newline sys_write
         ; Decide if text is real:
     freq_eng calcdist if 1 else
     0 fi
