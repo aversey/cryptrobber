@@ -3,8 +3,10 @@ defword cipher
     2 get as cipher.password
     1 get as cipher.len
     0 get as cipher.pos
-    cipher.pos @ cipher.password + @ cipher.byte @ xor cipher.byte !
-    cipher.pos @ 1 + cipher.pos !
-    cipher.pos @ cipher.len = if 0 cipher.pos ! fi
+        cipher.pos @ word_size mul cipher.password + @
+        cipher.byte @ xor
+    cipher.byte !
+    cipher.pos @ 0 = if cipher.len cipher.pos ! fi
+    cipher.pos @ 1 - cipher.pos !
     drop drop drop
 exit

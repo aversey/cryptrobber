@@ -5,34 +5,33 @@ set_entry
     ; read file into stack
     0 do sys_read 0 = until
         swap 1 +
-    od as length
+    od drop as length
     local ciphertext
 
         ; -= MAIN LOOP BEGIN =- ;
     ; place password ontop of stack
-    33 32 31 local password
+    31 32 33 local password
     3 as passlen
 
     ; decipher text (length is the same as for ciphertext)
-    0 0 do dup length = until
-        2 print_stack newline sys_write
+    passlen 1 - length do 1 -
         as pos local cipos
-            pos ciphertext + @
+            pos word_size mul ciphertext + @
             password
             passlen
             cipos
         cipher
         swap pos
-    1 + od drop drop
+    dup 0 = untilod drop drop
     local plaintext
 
     ; todo: check deciphering attempt, exit if Ok
         ; -= MAIN LOOP END =- ;
 
     ; output text (todo: and language)
-    0 do dup length = until
-        dup plaintext + @ sys_write
-    1 + od
+    length do 1 -
+        dup word_size mul plaintext + @ sys_write
+    dup 0 = untilod
 sys_exit
 
 module ia32/elf/end.sts
