@@ -6,4 +6,3 @@ module ia32/branch.sts
 module ia32/memory.sts
 module ia32/math.sts
 module ia32/bitwise.sts
-module ia32/syscall.sts

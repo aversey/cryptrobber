@@ -1,23 +1,23 @@
 all: cryptrobber encrypt test
 .PHONY: all clean cryptrobber encrypt test
 
-cryptrobber: smack strans
-	./smack main.sts | ./strans > $@
+cryptrobber: enki/smack enki/strans
+	enki/smack main.sts | enki/strans > $@
 	chmod 0755 $@
 
-encrypt: smack strans
-	./smack encrypt.sts | ./strans > $@
+encrypt: enki/smack enki/strans
+	enki/smack encrypt.sts | enki/strans > $@
 	chmod 0755 $@
 
-test: smack strans
-	./smack test.sts | ./strans > $@
+test: enki/smack enki/strans
+	enki/smack test.sts | enki/strans > $@
 	chmod 0755 $@
 
-smack: smack.c
+enki/smack: enki/smack.c
 	gcc $< -o $@
 
-strans: strans.c
+enki/strans: enki/strans.c
 	gcc $< -o $@
 
 clean:
-	rm -f smack strans cryptrobber encrypt test
+	rm -f enki/smack enki/strans cryptrobber encrypt test

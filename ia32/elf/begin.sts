@@ -125,4 +125,5 @@ _return_stack ?.
 # ff ?' # 20 ?'
 
 module ia32/ia32.sts
+module ia32/elf/syscall.sts
 module common/common.sts

@@ -1,11 +1,16 @@
 module ia32/elf/begin.sts
+module ia32/float/float.sts
 
 set_entry
-'2'
-'1'
-top as what
-what @ sys_write
-what word_size + @ sys_write_err
+float_init
+8 float_iload
+3 float_iload
+float_div
+float_istore '0' + sys_write
+21 float_iload
+4 float_iload
+float_div
+float_istore '0' + sys_write
 sys_exit
 
 module ia32/elf/end.sts

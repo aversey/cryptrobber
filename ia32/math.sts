@@ -8,12 +8,10 @@ defasm -
     # 29 ?' # 04 ?' # 24 ?'             ; sub [esp], eax
 next
 
-defasm /
+defasm mul
     # 5b ?'                             ; pop ebx
     # 58 ?'                             ; pop eax
-    # 31 ?' # d2 ?'                     ; xor edx, edx
-    # f7 ?' # f3 ?'                     ; div ebx
-    # 52 ?'                             ; push edx
+    # f7 ?' # e3 ?'                     ; mul ebx
     # 50 ?'                             ; push eax
 next
 
