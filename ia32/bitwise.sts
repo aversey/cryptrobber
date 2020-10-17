@@ -4,3 +4,24 @@ defasm xor
     # 31 ?' # d8 ?'                     ; xor eax, ebx
     # 50 ?'                             ; push eax
 next
+
+defasm and
+    # 5b ?'                             ; pop ebx
+    # 58 ?'                             ; pop eax
+    # 21 ?' # d8 ?'                     ; and eax, ebx
+    # 50 ?'                             ; push eax
+next
+
+defasm shr
+    # 59 ?'                             ; pop ecx
+    # 58 ?'                             ; pop eax
+    # d3 ?' # e8 ?'                     ; shr eax, cl
+    # 50 ?'                             ; push eax
+next
+
+defasm shl
+    # 59 ?'                             ; pop ecx
+    # 58 ?'                             ; pop eax
+    # d3 ?' # e0 ?'                     ; shl eax, cl
+    # 50 ?'                             ; push eax
+next

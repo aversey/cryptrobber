@@ -1,0 +1,30 @@
+defword get_hex
+    f and
+    dup 9 > if
+        a - 'a' +
+    else
+        '0' +
+    fi
+exit
+
+defword print_hex
+    dup 1c shr get_hex sys_write
+    dup 18 shr get_hex sys_write
+    dup 14 shr get_hex sys_write
+    dup 10 shr get_hex sys_write
+    dup c shr get_hex sys_write
+    dup 8 shr get_hex sys_write
+    dup 4 shr get_hex sys_write
+    get_hex sys_write
+    a sys_write
+exit
+
+defword print_stack
+    dup
+    do
+    dup 0 = until
+        over over - 2 + get print_hex
+        1 -
+    od
+    drop
+exit
