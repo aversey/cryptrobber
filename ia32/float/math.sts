@@ -22,7 +22,7 @@ defasm float_more
     # de ?' # d9 ?'                     ; fcompp
     # 9b ?' # df ?' # e0 ?'             ; fstsw ax
     # 25 ?' # 100 ?.                    ; and eax, 0x100
-    # c1 ?' # e8 ?' # 8 ?'              ; shr eax, 14
+    # c1 ?' # e8 ?' # 8 ?'              ; shr eax, 8
     # 50 ?'                             ; push eax
 next
 
