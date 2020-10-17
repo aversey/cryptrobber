@@ -7,19 +7,19 @@ module freq.sts
 [ sd 0 swap drop ]
 
 defword nicedist
-    1 float_iload 4 float_iload float_div
+    3e9eb852 float_fload
 exit
 
 defword calcdist ; distance from ideal as sqrt sum square diff
-    top 1a - as calcdist.textfr
+    1b ref as calcdist.textfr
     local calcdist.fr
     0 do dup 1a = until
-        dup word_size mul as calcdist.i
-                calcdist.i calcdist.fr + @ float_fload
-                calcdist.i calcdist.textfr + @ float_fload
+        dup word_size mul dup dup
+                calcdist.fr + @ float_fload
+                calcdist.textfr + @ float_fload
             float_sub float_fstore dup float_fload float_fload
-        float_mul float_fstore calcdist.i calcdist.fr + !
-    1 + od drop
+        float_mul float_fstore swap calcdist.fr + !
+    1 + od drop newline sys_write
     0 do dup 19 = until
         swap float_fload swap float_fload float_add float_fstore swap
     1 + od drop
@@ -45,7 +45,6 @@ defword checktext
             checktext.count @ 1 + checktext.count !
         fi drop
     dup 0 = untilod drop
-    1b print_stack newline sys_write
 ; ZERO DIVISION SHALL NOT PASS
 checktext.count 0 = if drop
     drop drop drop drop drop  drop drop drop drop drop  drop drop drop
@@ -54,7 +53,7 @@ checktext.count 0 = if drop
     ; normalize:
     0 do dup 1a = until
             dup word_size mul checktext.fr + dup @ float_iload
-            checktext.count float_iload
+            checktext.count @ float_iload
         float_div float_fstore swap !
     1 + od drop
         ; Decide if text is real:
