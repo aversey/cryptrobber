@@ -1,0 +1,34 @@
+defword keygen
+    ; Increment
+    0
+    do
+    over over = until
+        dup 2 + get
+        dup ff < if
+            1 + over 2 + set
+            drop
+            exit
+        fi
+        drop 0 over 2 + set
+        1 +
+    od
+    drop
+
+    ; Clean old stack data
+    dup
+    do
+    dup 0 = until
+        1 get 2 set swap drop
+        1 -
+    od
+    drop
+
+    1 +
+    0
+    do
+    over over = until
+        dup 2 get 1 set 0 2 set
+        1 +
+    od
+    drop
+exit
