@@ -7,7 +7,7 @@ module freq.sts
 [ sd 0 swap drop ]
 
 defword nicedist
-    3e9eb852 float_fload
+    1 float_iload 2 float_iload float_div
 exit
 
 defword calcdist ; distance from ideal as sqrt sum square diff
@@ -43,7 +43,13 @@ defword checktext
         fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
             dup 'Z' swap - word_size mul checktext.fr + dup @ 1 + swap !
             checktext.count @ 1 + checktext.count !
-        fi drop
+        fi dup 9 < if drop drop drop
+            drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+            drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+        0 exit fi dup dup 1f > 0 = swap e < 0 = mul if drop drop drop
+            drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+            drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+        0 exit fi drop
     dup 0 = untilod drop
 ; ZERO DIVISION SHALL NOT PASS
 checktext.count 0 = if drop
