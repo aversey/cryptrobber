@@ -15,6 +15,7 @@ set_entry
 
     ; decipher text (length is the same as for ciphertext)
     0 0 do dup length = until
+        2 print_stack newline sys_write
         as pos local cipos
             pos ciphertext + @
             password

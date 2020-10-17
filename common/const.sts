@@ -1,3 +1,4 @@
+defconst newline 0a
 defconst space 20
 defconst '!' 21
 defconst '"' 22
