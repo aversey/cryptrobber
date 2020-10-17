@@ -1,0 +1,32 @@
+defasm float_add
+    # de ?' # c1 ?'                     ; faddp st1, st0
+next
+
+defasm float_sub
+    # de ?' # e9 ?'                     ; fsubp st1, st0
+next
+
+defasm float_mul
+    # de ?' # c9 ?'                     ; fmullp st1, st0
+next
+
+defasm float_div
+    # de ?' # f9 ?'                     ; fdivp st1, st0
+next
+
+defasm float_sqrt
+    # d9 ?' # fa ?'                     ; fsqrt
+next
+
+defasm float_more
+    # de ?' # d9 ?'                     ; fcompp
+    # 9b ?' # df ?' # e0 ?'             ; fstsw ax
+    # 25 ?' # 100 ?.                    ; and eax, 0x100
+    # c1 ?' # e8 ?' # 8 ?'              ; shr eax, 8
+    # 50 ?'                             ; push eax
+next
+
+defword float_less
+    float_more
+    0 =
+exit
