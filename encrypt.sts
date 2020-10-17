@@ -1,20 +1,13 @@
 module ia32/elf/begin.sts
 module cipher.sts
 
-defarr passwd 3
-
-defword encrypt
-    top as pos
-    do sys_read 0 = until
-        passwd 3 pos cipher sys_write
-    od drop
-exit
-
 set_entry
-    31 passwd !
-    32 passwd 1 + !
-    33 passwd 2 + !
-    0 encrypt drop
+    31 32 33 local password
+    3 as passlen
+    passlen 1 - local pos
+    do sys_read 0 = until
+        password passlen pos cipher sys_write
+    od
 sys_exit
 
 module ia32/elf/end.sts
