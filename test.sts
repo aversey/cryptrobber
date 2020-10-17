@@ -20,6 +20,7 @@ float_istore
 float_div
 float_istore
 7 print_stack
+7 print_stack
 sys_exit
 
 module ia32/elf/end.sts

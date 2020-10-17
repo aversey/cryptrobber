@@ -27,4 +27,5 @@ defword print_stack
         1 -
     od
     drop
+    drop
 exit
