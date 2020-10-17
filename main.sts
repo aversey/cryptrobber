@@ -55,6 +55,7 @@ checktext.count 0 = if
             checktext.count float_iload
         float_div float_fstore swap !
     1 + od drop
+    1a print_stack newline sys_write
         ; Decide if text is real:
     freq_eng calcdist if 1 else
     0 fi
@@ -87,8 +88,8 @@ set_entry float_init ; this is program with floats
         dup 0 = untilod drop drop
         local plaintext
 
-        ; check deciphering attempt, exit if Ok or keylen = max (16)
-    keylen 10 = if eeeee else length checktext fi dup until drop
+        ; check deciphering attempt, exit if Ok or keylen = max (2)
+    keylen 2 = if eeeee else length checktext fi dup until drop
         ; else remove the text from stack and place keylen back
         0 do dup length = until
             swap drop 1 +
