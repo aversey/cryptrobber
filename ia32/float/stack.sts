@@ -8,6 +8,12 @@ defasm float_iload
     # 58 ?'                             ; pop eax
 next
 
+defasm float_dload
+    # df ?' # 2c ?' # 24 ?'             ; fild qword [esp]
+    # 58 ?'                             ; pop eax
+    # 58 ?'                             ; pop eax
+next
+
 defasm float_fstore
     # 50 ?'                             ; push eax
     # d9 ?' # 1c ?' # 24 ?'             ; fstp dword [esp]

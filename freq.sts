@@ -1,0 +1,35 @@
+[ freq_push_eng 1
+    %1% float_iload
+    1 04b7e520 float_dload
+    float_div
+    float_fstore
+]
+
+defword freq_eng
+    freq_push_eng 164bbb40              ; 'A'
+    freq_push_eng 42f1a72               ; 'B'
+    freq_push_eng 8401143               ; 'C'
+    freq_push_eng a17c760               ; 'D'
+    freq_push_eng 1f89b0b5              ; 'E'
+    freq_push_eng 5b00667               ; 'F'
+    freq_push_eng 5708064               ; 'G'
+    freq_push_eng ceba1cf               ; 'H'
+    freq_push_eng 131911c9              ; 'I'
+    freq_push_eng 92b062                ; 'J'
+    freq_push_eng 21bc198               ; 'K'
+    freq_push_eng af78ee2               ; 'L'
+    freq_push_eng 6962a60               ; 'M'
+    freq_push_eng 12b2fedc              ; 'N'
+    freq_push_eng 1377f19c              ; 'O'
+    freq_push_eng 5630a2b               ; 'P'
+    freq_push_eng 456e16                ; 'Q'
+    freq_push_eng 1082b289              ; 'R'
+    freq_push_eng 118aaa32              ; 'S'
+    freq_push_eng 174da771              ; 'T'
+    freq_push_eng 6fdcaa4               ; 'U'
+    freq_push_eng 2c30c89               ; 'V'
+    freq_push_eng 4c25150               ; 'W'
+    freq_push_eng 7fb6fb                ; 'X'
+    freq_push_eng 47ce733               ; 'Y'
+    freq_push_eng 4bece7                ; 'Z'
+exit

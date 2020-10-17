@@ -1,13 +1,10 @@
 module ia32/elf/begin.sts
 module ia32/float/float.sts
-module keygen.sts
+module freq.sts
 
 set_entry
-ff ff 2 keygen
-5 print_stack
-a sys_write
-keygen
-5 print_stack
+    freq_eng
+    20 print_stack
 sys_exit
 
 module ia32/elf/end.sts
