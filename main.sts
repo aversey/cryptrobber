@@ -1,7 +1,28 @@
 module ia32/elf/begin.sts
 module cipher.sts
+module keygen.sts
 
 [ sd 0 swap drop ]
+
+defword nicedist
+    1 float_iload 8 float_iload float_div
+exit
+
+defword calcdist
+    top 1a - as calcdist.textfr
+    local calcdist.fr
+    0 do dup 1a = until
+        dup word_size mul as calcdist.i
+                calcdist.i calcdist.fr + @ float_fload
+                calcdist.i calcdost.textfr + @ float_fload
+            float_sub float_fstore dup float_fload float_fload
+        float_mul float_fstore calcdist.t calcdist.fr + !
+    od drop
+    0 as calcdist.i do calcdist.i 19 = until
+        float_fload float_fload float_add float_fstore
+    calcdist.i 1 + as calcdist.i od
+    float_fload float_sqrt nicedist float_less
+exit
 
 defword checktext
     as checktext.length
@@ -10,26 +31,37 @@ defword checktext
     ; 26 latin letters:
     0 0 0 0 0  0 0 0 0 0  0 0 0
     0 0 0 0 0  0 0 0 0 0  0 0 0 local checktext.fr
+    ; count how much of each letter is in text:
+    0 as checktext.count
     checktext.length do 1 -
-        dup checktext.text + @
+        dup word_size mul checktext.text + @
         dup dup 'z' > 0 = swap 'a' < 0 = mul if
-            dup 'z' swap - dup checktext.fr + @ + 1 swap !
+            dup 'z' swap - word_size mul checktext.fr + dup @ + 1 swap !
         fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
-            dup 'Z' swap - dup checktext.fr + @ + 1 swap !
+            dup 'Z' swap - word_size mul checktext.fr + dup @ + 1 swap !
         fi drop
+        checktext.count 1 + as checktext.count
     dup 0 = untilod drop
+; ZERO DIVISION SHALL NOT PASS
+checktext.count 0 = if
+    drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+    drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+0 exit fi
+    ; normalize:
+    0 do dup 1a = until
+            dup word_size mul checktext.fr + dup @ float_iload
+            checktext.count float_iload
+        float_div float_fstore swap !
+    od drop
         ; Decide if text is real:
-    1
+    freq_eng calcdist if 1 else
+    0 fi
         ; Remove frequencies from stack:
     sd sd sd sd sd  sd sd sd sd sd  sd sd sd
     sd sd sd sd sd  sd sd sd sd sd  sd sd sd
 exit
 
-defword keygen
-    drop 31 32 33 3
-exit
-
-set_entry
+set_entry float_init ; this is program with floats
     ; read file into stack
     0 do sys_read 0 = until
         swap 1 +
@@ -53,8 +85,8 @@ set_entry
         dup 0 = untilod drop drop
         local plaintext
 
-        ; check deciphering attempt, exit if Ok
-    length checktext dup until drop
+        ; check deciphering attempt, exit if Ok or keylen = max (16)
+    keylen 10 = if eeeee else length checktext fi dup until drop
         ; else remove the text from stack and place keylen back
         0 do dup length = until
             swap drop 1 +
