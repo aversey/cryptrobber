@@ -1,8 +1,28 @@
 module ia32/elf/begin.sts
 module cipher.sts
 
+[ sd 0 swap drop ]
+
 defword checktext
+    as checktext.length
+    local checktext.text
+        ; Count frequencies:
+    ; 26 latin letters:
+    0 0 0 0 0  0 0 0 0 0  0 0 0
+    0 0 0 0 0  0 0 0 0 0  0 0 0 local checktext.fr
+    checktext.length do 1 -
+        dup checktext.text + @
+        dup dup 'z' > 0 = swap 'a' < 0 = mul if
+            dup 'z' swap - dup checktext.fr + @ + 1 swap !
+        fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
+            dup 'Z' swap - dup checktext.fr + @ + 1 swap !
+        fi drop
+    dup 0 = untilod drop
+        ; Decide if text is real:
     1
+        ; Remove frequencies from stack:
+    sd sd sd sd sd  sd sd sd sd sd  sd sd sd
+    sd sd sd sd sd  sd sd sd sd sd  sd sd sd
 exit
 
 defword keygen
@@ -34,14 +54,67 @@ set_entry
         local plaintext
 
         ; check deciphering attempt, exit if Ok
-    length checktext until
+    length checktext dup until drop
         ; else remove the text from stack and place keylen back
         0 do dup length = until
             swap drop 1 +
         od drop keylen
-    od
+    od as langcode
 
-    ; output text (todo: and language)
+    ; output language
+    langcode 1 = if
+        'e' sys_write_err
+        'n' sys_write_err
+        'g' sys_write_err
+        'l' sys_write_err
+        'i' sys_write_err
+        's' sys_write_err
+        'h' sys_write_err
+    fi langcode 2 = if
+        'd' sys_write_err
+        'u' sys_write_err
+        't' sys_write_err
+        'c' sys_write_err
+        'h' sys_write_err
+    fi langcode 3 = if
+        'g' sys_write_err
+        'e' sys_write_err
+        'r' sys_write_err
+        'm' sys_write_err
+        'a' sys_write_err
+        'n' sys_write_err
+    fi langcode 4 = if
+        'f' sys_write_err
+        'r' sys_write_err
+        'e' sys_write_err
+        'n' sys_write_err
+        'c' sys_write_err
+        'h' sys_write_err
+    fi langcode 5 = if
+        's' sys_write_err
+        'p' sys_write_err
+        'a' sys_write_err
+        'n' sys_write_err
+        'i' sys_write_err
+        's' sys_write_err
+        'h' sys_write_err
+    fi langcode 6 = if
+        'i' sys_write_err
+        't' sys_write_err
+        'a' sys_write_err
+        'l' sys_write_err
+        'i' sys_write_err
+        'a' sys_write_err
+        'n' sys_write_err
+    fi langcode eeeee = if
+        'e' sys_write_err
+        'r' sys_write_err
+        'r' sys_write_err
+        'o' sys_write_err
+        'r' sys_write_err
+    fi
+
+    ; output text
     length do 1 -
         dup word_size mul plaintext + @ sys_write
     dup 0 = untilod
