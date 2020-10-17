@@ -1,19 +1,17 @@
 defasm docol
-    # 83 ?' # ed ?' # 4 ?'     ; sub ebp, 4
-    # 89 ?' # 75 ?' # 0 ?'     ; mov [ebp], esi
-    # 83 ?' # c0 ?' # 4 ?'     ; add eax, 4
-    # 89 ?' # c6 ?'            ; mov esi, eax
-    # ad ?' # ff ?' # 20 ?'    ; go next
+    # 83 ?' # ed ?' # 4 ?'              ; sub ebp, 4
+    # 89 ?' # 75 ?' # 0 ?'              ; mov [ebp], esi
+    # 83 ?' # c0 ?' # 4 ?'              ; add eax, 4
+    # 89 ?' # c6 ?'                     ; mov esi, eax
+    # ad ?' # ff ?' # 20 ?'             ; go next
 next
 
 defasm exit
-    # 8b ?' # 75 ?' # 0 ?'     ; mov esi, [ebp]
-    # 83 ?' # c5 ?' # 4 ?'     ; add ebp, 4
+    # 8b ?' # 75 ?' # 0 ?'              ; mov esi, [ebp]
+    # 83 ?' # c5 ?' # 4 ?'              ; add ebp, 4
 next
 
 defasm lit
-    # ad ?'                    ; lodsd
-    # 50 ?'                    ; push eax
+    # ad ?'                             ; lodsd
+    # 50 ?'                             ; push eax
 next
-
-defconst word_size 4

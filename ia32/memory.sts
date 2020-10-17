@@ -1,10 +1,10 @@
 defasm @
-    # 58 ?'                    ; pop eax
-    # ff ?' # 30 ?'            ; push dword [eax]
+    # 58 ?'                             ; pop eax
+    # ff ?' # 30 ?'                     ; push dword [eax]
 next
 
 defasm !
-    # 5b ?'                    ; pop ebx
-    # 58 ?'                    ; pop eax
-    # 89 ?' # 03 ?'            ; mov [ebx], eax
+    # 5b ?'                             ; pop ebx
+    # 58 ?'                             ; pop eax
+    # 89 ?' # 03 ?'                     ; mov [ebx], eax
 next

@@ -1,7 +1,7 @@
 defasm sys_exit
-    # b8 ?' # 1 ?.             ; mov eax, 1
-    # 31 ?' # db ?'            ; xor ebx, ebx
-    # cd ?' # 80 ?'            ; int 0x80
+    # b8 ?' # 1 ?.                      ; mov eax, 1
+    # 31 ?' # db ?'                     ; xor ebx, ebx
+    # cd ?' # 80 ?'                     ; int 0x80
 ; no need in next since this is the last instruction
 
 _data_segment ?choose
@@ -9,23 +9,33 @@ _data_segment ?choose
 _code_segment ?choose
 
 defasm sys_read
-    # b8 ?' # 3 ?.             ; mov eax, 3
-    # 31 ?' # db ?'            ; xor ebx, ebx
-    # b9 ?' _iobuf ?.          ; mov ecx, _iobuf
-    # ba ?' # 1 ?.             ; mov edx, 1
-    # cd ?' # 80 ?'            ; int 0x80
-    # 31 ?' # db ?'            ; xor ebx, ebx
-    # 8a ?' # 1d ?' _iobuf ?.  ; mov bl, [_iobuf]
-    # 53 ?'                    ; push ebx
-    # 50 ?'                    ; push eax
+    # b8 ?' # 3 ?.                      ; mov eax, 3
+    # 31 ?' # db ?'                     ; xor ebx, ebx
+    # b9 ?' _iobuf ?.                   ; mov ecx, _iobuf
+    # ba ?' # 1 ?.                      ; mov edx, 1
+    # cd ?' # 80 ?'                     ; int 0x80
+    # 31 ?' # db ?'                     ; xor ebx, ebx
+    # 8a ?' # 1d ?' _iobuf ?.           ; mov bl, [_iobuf]
+    # 53 ?'                             ; push ebx
+    # 50 ?'                             ; push eax
 next
 
 defasm sys_write
-    # 58 ?'                    ; pop eax
-    # a2 ?' _iobuf ?.          ; mov [_iobuf], al
-    # b8 ?' # 4 ?.             ; mov eax, 4
-    # bb ?' # 1 ?.             ; mov ebx, 1
-    # b9 ?' _iobuf ?.          ; mov ecx, _iobuf
-    # ba ?' # 1 ?.             ; mov edx, 1
-    # cd ?' # 80 ?'            ; int 0x80
+    # 58 ?'                             ; pop eax
+    # a2 ?' _iobuf ?.                   ; mov [_iobuf], al
+    # b8 ?' # 4 ?.                      ; mov eax, 4
+    # bb ?' # 1 ?.                      ; mov ebx, 1
+    # b9 ?' _iobuf ?.                   ; mov ecx, _iobuf
+    # ba ?' # 1 ?.                      ; mov edx, 1
+    # cd ?' # 80 ?'                     ; int 0x80
+next
+
+defasm sys_write_err
+    # 58 ?'                             ; pop eax
+    # a2 ?' _iobuf ?.                   ; mov [_iobuf], al
+    # b8 ?' # 4 ?.                      ; mov eax, 4
+    # bb ?' # 2 ?.                      ; mov ebx, 2
+    # b9 ?' _iobuf ?.                   ; mov ecx, _iobuf
+    # ba ?' # 1 ?.                      ; mov edx, 1
+    # cd ?' # 80 ?'                     ; int 0x80
 next

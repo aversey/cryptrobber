@@ -1,0 +1,9 @@
+[ local 1
+    top as %1%
+]
+
+[ change 0
+    dup get
+    swap 2 get swap 2 + set
+    swap drop
+]

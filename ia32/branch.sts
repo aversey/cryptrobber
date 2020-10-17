@@ -1,11 +1,11 @@
 defasm branch
-    # 8b ?' # 36 ?'            ; mov esi, [esi]
+    # 8b ?' # 36 ?'                     ; mov esi, [esi]
 next
 
 defasm 0branch
-    # 58 ?'                    ; pop eax
-    # 83 ?' # c6 ?' # 4 ?'     ; add esi, 4
-    # 83 ?' # f8 ?' # 00 ?'    ; cmp eax, 0
-    # 75 ?' # 3 ?'             ; jne +3
-    # 8b ?' # 76 ?' # fc ?'    ; mov esi, [esi - 4]
+    # 58 ?'                             ; pop eax
+    # 83 ?' # c6 ?' # 4 ?'              ; add esi, 4
+    # 83 ?' # f8 ?' # 0 ?'              ; cmp eax, 0
+    # 75 ?' # 3 ?'                      ; jne +3
+    # 8b ?' # 76 ?' # fc ?'             ; mov esi, [esi - 4]
 next

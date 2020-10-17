@@ -1,0 +1,3 @@
+defconst word_size 4
+defconst word_max ffffffff
+defconst word_endianness 0

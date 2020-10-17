@@ -1,79 +1,70 @@
 defasm +
-    # 58 ?'                    ; pop eax
-    # 01 ?' # 04 ?' # 24 ?'    ; add [esp], eax
+    # 58 ?'                             ; pop eax
+    # 01 ?' # 04 ?' # 24 ?'             ; add [esp], eax
 next
 
 defasm -
-    # 58 ?'                    ; pop eax
-    # 29 ?' # 04 ?' # 24 ?'    ; sub [esp], eax
+    # 58 ?'                             ; pop eax
+    # 29 ?' # 04 ?' # 24 ?'             ; sub [esp], eax
 next
 
 defasm /
-    # 5b ?'                    ; pop ebx
-    # 58 ?'                    ; pop eax
-    # 31 ?' # d2 ?'            ; xor edx, edx
-    # f7 ?' # f3 ?'            ; div ebx
-    # 52 ?'                    ; push edx
-    # 50 ?'                    ; push eax
+    # 5b ?'                             ; pop ebx
+    # 58 ?'                             ; pop eax
+    # 31 ?' # d2 ?'                     ; xor edx, edx
+    # f7 ?' # f3 ?'                     ; div ebx
+    # 52 ?'                             ; push edx
+    # 50 ?'                             ; push eax
 next
 
 defasm mod
-    # 5b ?'                    ; pop ebx
-    # 58 ?'                    ; pop eax
-    # 31 ?' # d2 ?'            ; xor edx, edx
-    # f7 ?' # f3 ?'            ; div ebx
-    # 52 ?'                    ; push edx
+    # 5b ?'                             ; pop ebx
+    # 58 ?'                             ; pop eax
+    # 31 ?' # d2 ?'                     ; xor edx, edx
+    # f7 ?' # f3 ?'                     ; div ebx
+    # 52 ?'                             ; push edx
 next
 
 defasm div
-    # 5b ?'                    ; pop ebx
-    # 58 ?'                    ; pop eax
-    # 31 ?' # d2 ?'            ; xor edx, edx
-    # f7 ?' # f3 ?'            ; div ebx
-    # 50 ?'                    ; push eax
+    # 5b ?'                             ; pop ebx
+    # 58 ?'                             ; pop eax
+    # 31 ?' # d2 ?'                     ; xor edx, edx
+    # f7 ?' # f3 ?'                     ; div ebx
+    # 50 ?'                             ; push eax
 next
 
 defasm =
-    # 5b ?'                    ; pop ebx
-    # 58 ?'                    ; pop eax
-    # 39 ?' # d8 ?'            ; cmp eax, ebx
-    # 0f ?' # 94 ?' # c0 ?'    ; sete al
-    # 0f ?' # b6 ?' # c0 ?'    ; movzx eax, al
-    # 50 ?'                    ; push eax
+    # 5b ?'                             ; pop ebx
+    # 58 ?'                             ; pop eax
+    # 39 ?' # d8 ?'                     ; cmp eax, ebx
+    # 0f ?' # 94 ?' # c0 ?'             ; sete al
+    # 0f ?' # b6 ?' # c0 ?'             ; movzx eax, al
+    # 50 ?'                             ; push eax
 next
 
 defasm !=
-    # 5b ?'                    ; pop ebx
-    # 58 ?'                    ; pop eax
-    # 39 ?' # d8 ?'            ; cmp eax, ebx
-    # 0f ?' # 95 ?' # c0 ?'    ; sete al
-    # 0f ?' # b6 ?' # c0 ?'    ; movzx eax, al
-    # 50 ?'                    ; push eax
-next
-
-defasm !=
-    # 5b ?'                    ; pop ebx
-    # 58 ?'                    ; pop eax
-    # 39 ?' # d8 ?'            ; cmp eax, ebx
-    # 0f ?' # 95 ?' # c0 ?'    ; sete al
-    # 0f ?' # b6 ?' # c0 ?'    ; movzx eax, al
-    # 50 ?'                    ; push eax
+    # 5b ?'                             ; pop ebx
+    # 58 ?'                             ; pop eax
+    # 39 ?' # d8 ?'                     ; cmp eax, ebx
+    # 0f ?' # 95 ?' # c0 ?'             ; setne al
+    # 0f ?' # b6 ?' # c0 ?'             ; movzx eax, al
+    # 50 ?'                             ; push eax
 next
 
 defasm <
-    # 5b ?'                    ; pop ebx
-    # 58 ?'                    ; pop eax
-    # 39 ?' # d8 ?'            ; cmp eax, ebx
-    # 0f ?' # 92 ?' # c0 ?'    ; setb al
-    # 0f ?' # b6 ?' # c0 ?'    ; movzx eax, al
-    # 50 ?'                    ; push eax
+    # 5b ?'                             ; pop ebx
+    # 58 ?'                             ; pop eax
+    # 39 ?' # d8 ?'                     ; cmp eax, ebx
+    # 0f ?' # 92 ?' # c0 ?'             ; setb al
+    # 0f ?' # b6 ?' # c0 ?'             ; movzx eax, al
+    # 50 ?'                             ; push eax
 next
 
 defasm >
-    # 5b ?'                    ; pop ebx
-    # 58 ?'                    ; pop eax
-    # 39 ?' # d8 ?'            ; cmp eax, ebx
-    # 0f ?' # 97 ?' # c0 ?'    ; seta al
-    # 0f ?' # b6 ?' # c0 ?'    ; movzx eax, al
-    # 50 ?'                    ; push eax
+    # 5b ?'                             ; pop ebx
+    # 58 ?'                             ; pop eax
+    # 39 ?' # d8 ?'                     ; cmp eax, ebx
+    # 0f ?' # 97 ?' # c0 ?'             ; seta al
+    # 0f ?' # b6 ?' # c0 ?'             ; movzx eax, al
+    # 50 ?'                             ; push eax
 next

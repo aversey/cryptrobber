@@ -20,7 +20,7 @@
 
 [ defconst 2
     defasm %1%
-    # 68 ?' # %2% ?.                      ; push %2%
+        # 68 ?' # %2% ?.                ; push %2%
     next
 ]
 
@@ -30,7 +30,7 @@
     # %2% # 4 ?* ?res
     _code_segment ?choose
     defasm %1%
-    # 68 ?' _%1%_arr ?.                 ; push _%1%_arr
+        # 68 ?' _%1%_arr ?.             ; push _%1%_arr
     next
 ]
 
@@ -40,15 +40,11 @@
 
 [ as 1
     _data_segment ?choose
-        defword %1%
-            lit ?$ # 0 ?.
-        exit
+    defword %1%
+        lit ?$ # 0 ?.
+    exit
     _code_segment ?choose
     lit ?. !
-]
-
-[ local 1
-    top as %1%
 ]
 
 [ literal 0
@@ -87,10 +83,4 @@
 [ od 0
     branch ?swap ?.
     ?$ ?swap ?!
-]
-
-[ change 0
-    dup get
-    swap 2 get swap 2 + set
-    swap drop
 ]

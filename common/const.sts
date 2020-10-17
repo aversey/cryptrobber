@@ -1,0 +1,10 @@
+defconst '0' 30
+defconst '1' 31
+defconst '2' 32
+defconst '3' 33
+defconst '4' 34
+defconst '5' 35
+defconst '6' 36
+defconst '7' 37
+defconst '8' 38
+defconst '9' 39
