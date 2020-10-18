@@ -103,8 +103,8 @@ defword checktext
     bifreq_eng freq_eng calcdist if 1 else
     0 fi
         ; Remove frequencies from stack:
-    2c0 set
-    2c0 clear
+    2c1 set
+    2c1 clear
 exit
 
 set_entry float_init ; this is program with floats
@@ -118,6 +118,7 @@ set_entry float_init ; this is program with floats
     do
         ; generate next key to try
         keygen as keylen local key
+        5 print_stack
         '.' sys_write_err
 
         ; decipher text (length is the same as for ciphertext)
