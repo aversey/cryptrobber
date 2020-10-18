@@ -8,7 +8,7 @@ module bifreq.sts
 [ sd 0 swap drop ]
 
 defword nicedist
-    1 float_iload 10 float_iload float_div
+    1 float_iload a float_iload float_div
 exit
 
 defword zeros
@@ -36,9 +36,7 @@ defword calcdist ; distance from ideal as sqrt sum square diff
     0 do dup 2bd = until
         swap float_fload swap float_fload float_add float_fstore swap
     1 + od drop
-    float_fload float_sqrt
-    float_fstore dup print_hex newline sys_write float_fload
-    nicedist float_less
+    float_fload float_sqrt nicedist float_less
 exit
 
 defword checktext
