@@ -1,9 +1,9 @@
-module ia32/elf/begin.sts
-module ia32/float/float.sts
-module cipher.sts
-module keygen.sts
-module freq.sts
-module bifreq.sts
+module sts/ia32/elf/begin.sts
+module sts/ia32/float/float.sts
+module sts/cipher.sts
+module sts/keygen.sts
+module sts/freq.sts
+module sts/bifreq.sts
 
 [ sd 0 swap drop ]
 
@@ -203,8 +203,11 @@ set_entry float_init ; this is program with floats
 
     ; output key
     keylen do 1 -
-        dup word_size mul key + @ sys_write_err
-    dup 0 = untilod drop newline sys_write_err
+        dup word_size mul key + @
+        dup 4 shr get_hex sys_write_err get_hex sys_write_err
+    dup 0 = until
+        space sys_write_err
+    od drop newline sys_write_err
 sys_exit
 
-module ia32/elf/end.sts
+module sts/ia32/elf/end.sts

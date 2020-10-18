@@ -1,5 +1,5 @@
-module ia32/elf/begin.sts
-module cipher.sts
+module sts/ia32/elf/begin.sts
+module sts/cipher.sts
 
 set_entry
     31 32 local password
@@ -10,4 +10,4 @@ set_entry
     od
 sys_exit
 
-module ia32/elf/end.sts
+module sts/ia32/elf/end.sts

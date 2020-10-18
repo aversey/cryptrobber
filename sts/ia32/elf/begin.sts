@@ -124,6 +124,6 @@ _return_stack ?.
 ; jmp dword [eax]
 # ff ?' # 20 ?'
 
-module ia32/ia32.sts
-module ia32/elf/syscall.sts
-module common/common.sts
+module sts/ia32/ia32.sts
+module sts/ia32/elf/syscall.sts
+module sts/common/common.sts

@@ -1,3 +1,5 @@
+-= Overview
+
 This program will work only on Linux.
 
 To build everything run 'make'.
@@ -7,9 +9,20 @@ Simple test can be done with
     ./encrpyt < README | ./cryptrobber > README.copy
 
 The test should show that original text is written in english
-and that default key is 31 32 33 in hex or 123 as ASCII.
+and that default key is 31 32 in hex.  Since the key can be anything
+it is printted in hex, but you can lookup ASCII to find what string it is.
 Decrypted README will be in README.copy.
 
+-= Project Structure
 
+'base' directory contains strans translator and smack macro processor.
+STS files in project root directory are main files of corresponding programs.
+'encrypt' will encrypt its input with hardcoded key.  You can use it as:
 
-Following text is added for stability:
+    ./encrpyt < file_to_your_file > path_to_save_encrypted_data
+
+'cryptrobber' will try different keys on it input, and if deciphered text
+will met requirements cryptrobber will output predicted language and key.
+So the thing is breaking encrypted files, use it as:
+
+    ./cryptrobber < path_to_encrypted_data > path_to_save_decrypted_data

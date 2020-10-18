@@ -1,8 +1,0 @@
-module ia32/macro.sts
-module ia32/const.sts
-module ia32/core.sts
-module ia32/stack.sts
-module ia32/branch.sts
-module ia32/memory.sts
-module ia32/math.sts
-module ia32/bitwise.sts

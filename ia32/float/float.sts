@@ -1,3 +1,0 @@
-module ia32/float/control.sts
-module ia32/float/stack.sts
-module ia32/float/math.sts
