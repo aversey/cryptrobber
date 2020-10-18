@@ -26,3 +26,6 @@ will met requirements cryptrobber will output predicted language and key.
 So the thing is breaking encrypted files, use it as:
 
     ./cryptrobber < path_to_encrypted_data > path_to_save_decrypted_data
+
+This software can determ if text is in english or in spanish.
+Language and kwy in hex will be outputed into error stream.

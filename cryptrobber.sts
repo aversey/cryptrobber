@@ -32,7 +32,7 @@ defword calcdist ; distance from ideal as sqrt sum square diff
                 calcdist.textfr + @ float_fload
             float_sub float_fstore dup float_fload float_fload
         float_mul float_fstore swap calcdist.fr + !
-    1 + od
+    1 + od drop
     0 do dup 2bd = until
         swap float_fload swap float_fload float_add float_fstore swap
     1 + od drop
@@ -101,17 +101,21 @@ defword checktext
     1 + od drop
         ; Decide if text is real:
     bifreq_eng freq_eng calcdist nicedist float_less if
-        1
+        bifreq_sp freq_sp calcdist bifreq_eng freq_eng calcdist float_less if
+            2
+        else
+            1
+        fi
     else
-;        bifreq_sp freq_sp calcdist nicedist float_less if
-;            2
-;        else
+        bifreq_sp freq_sp calcdist nicedist float_less if
+            2
+        else
             0
-;        fi
+        fi
     fi
         ; Remove frequencies from stack:
-    2c1 set
-    2c1 clear
+    2c0 set
+    2c0 clear
 exit
 
 set_entry float_init ; this is program with floats
