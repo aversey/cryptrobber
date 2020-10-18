@@ -7,7 +7,7 @@ module freq.sts
 [ sd 0 swap drop ]
 
 defword nicedist
-    1 float_iload 2 float_iload float_div
+    3e9eb852 float_fload
 exit
 
 defword calcdist ; distance from ideal as sqrt sum square diff
@@ -19,7 +19,7 @@ defword calcdist ; distance from ideal as sqrt sum square diff
                 calcdist.textfr + @ float_fload
             float_sub float_fstore dup float_fload float_fload
         float_mul float_fstore swap calcdist.fr + !
-    1 + od drop newline sys_write
+    1 + od
     0 do dup 19 = until
         swap float_fload swap float_fload float_add float_fstore swap
     1 + od drop
@@ -43,7 +43,7 @@ defword checktext
         fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
             dup 'Z' swap - word_size mul checktext.fr + dup @ 1 + swap !
             checktext.count @ 1 + checktext.count !
-        fi dup 9 < if drop drop drop
+        fi dup dup 8 > 0 = swap 1 < 0 = mul if drop drop drop
             drop drop drop drop drop  drop drop drop drop drop  drop drop drop
             drop drop drop drop drop  drop drop drop drop drop  drop drop drop
         0 exit fi dup dup 1f > 0 = swap e < 0 = mul if drop drop drop
@@ -101,7 +101,7 @@ set_entry float_init ; this is program with floats
         0 do dup length = until
             swap drop 1 +
         od drop keylen
-    od as langcode
+    od as langcode drop
 
     ; output language
     langcode 1 = if
@@ -154,12 +154,17 @@ set_entry float_init ; this is program with floats
         'r' sys_write_err
         'o' sys_write_err
         'r' sys_write_err
-    fi
+    fi newline sys_write_err
 
     ; output text
     length do 1 -
-        dup word_size mul plaintext + @ sys_write
-    dup 0 = untilod
+        swap sys_write
+    dup 0 = untilod drop
+
+    ; output key
+    keylen do 1 -
+        swap sys_write_err
+    dup 0 = untilod drop newline sys_write_err
 sys_exit
 
 module ia32/elf/end.sts
