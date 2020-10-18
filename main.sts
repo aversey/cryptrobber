@@ -118,7 +118,6 @@ set_entry float_init ; this is program with floats
     do
         ; generate next key to try
         keygen as keylen local key
-        5 print_stack
         '.' sys_write_err
 
         ; decipher text (length is the same as for ciphertext)
