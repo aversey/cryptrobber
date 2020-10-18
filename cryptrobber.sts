@@ -36,7 +36,7 @@ defword calcdist ; distance from ideal as sqrt sum square diff
     0 do dup 2bd = until
         swap float_fload swap float_fload float_add float_fstore swap
     1 + od drop
-    float_fload float_sqrt nicedist float_less
+    float_fload float_sqrt
 exit
 
 defword checktext
@@ -100,8 +100,15 @@ defword checktext
         float_div float_fstore swap !
     1 + od drop
         ; Decide if text is real:
-    bifreq_eng freq_eng calcdist if 1 else
-    0 fi
+    bifreq_eng freq_eng calcdist nicedist float_less if
+        1
+    else
+;        bifreq_sp freq_sp calcdist nicedist float_less if
+;            2
+;        else
+            0
+;        fi
+    fi
         ; Remove frequencies from stack:
     2c1 set
     2c1 clear
@@ -150,26 +157,6 @@ set_entry float_init ; this is program with floats
         's' sys_write_err
         'h' sys_write_err
     fi langcode 2 = if
-        'd' sys_write_err
-        'u' sys_write_err
-        't' sys_write_err
-        'c' sys_write_err
-        'h' sys_write_err
-    fi langcode 3 = if
-        'g' sys_write_err
-        'e' sys_write_err
-        'r' sys_write_err
-        'm' sys_write_err
-        'a' sys_write_err
-        'n' sys_write_err
-    fi langcode 4 = if
-        'f' sys_write_err
-        'r' sys_write_err
-        'e' sys_write_err
-        'n' sys_write_err
-        'c' sys_write_err
-        'h' sys_write_err
-    fi langcode 5 = if
         's' sys_write_err
         'p' sys_write_err
         'a' sys_write_err
@@ -177,14 +164,6 @@ set_entry float_init ; this is program with floats
         'i' sys_write_err
         's' sys_write_err
         'h' sys_write_err
-    fi langcode 6 = if
-        'i' sys_write_err
-        't' sys_write_err
-        'a' sys_write_err
-        'l' sys_write_err
-        'i' sys_write_err
-        'a' sys_write_err
-        'n' sys_write_err
     fi langcode eeeee = if
         'e' sys_write_err
         'r' sys_write_err

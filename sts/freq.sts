@@ -5,7 +5,7 @@
     float_fstore
 ]
 
-[ freq_push_spain 1
+[ freq_push_sp 1
     %1% float_iload
     4e682cf float_iload
     float_div
@@ -41,31 +41,31 @@ defword freq_eng
     freq_push_eng 4bece7                ; 'Z'
 exit
 
-defword freq_spain
-    freq_push_spain 9d31b0
-    freq_push_spain fe9ab
-    freq_push_spain 37aa50
-    freq_push_spain 40a6dc
-    freq_push_spain a68100
-    freq_push_spain 9f47f
-    freq_push_spain eb5cb
-    freq_push_spain a3c24
-    freq_push_spain 56e498
-    freq_push_spain 5b59d
-    freq_push_spain faa7
-    freq_push_spain 495fe7
-    freq_push_spain 20d8fe
-    freq_push_spain 5916cc
-    freq_push_spain 70e413
-    freq_push_spain 2295ab
-    freq_push_spain a7878
-    freq_push_spain 532ca1
-    freq_push_spain 5d838c
-    freq_push_spain 37987b
-    freq_push_spain 323cfa
-    freq_push_spain c61b1
-    freq_push_spain 677c
-    freq_push_spain 25620
-    freq_push_spain 9effb
-    freq_push_spain 5432d
+defword freq_sp
+    freq_push_sp 9d31b0
+    freq_push_sp fe9ab
+    freq_push_sp 37aa50
+    freq_push_sp 40a6dc
+    freq_push_sp a68100
+    freq_push_sp 9f47f
+    freq_push_sp eb5cb
+    freq_push_sp a3c24
+    freq_push_sp 56e498
+    freq_push_sp 5b59d
+    freq_push_sp faa7
+    freq_push_sp 495fe7
+    freq_push_sp 20d8fe
+    freq_push_sp 5916cc
+    freq_push_sp 70e413
+    freq_push_sp 2295ab
+    freq_push_sp a7878
+    freq_push_sp 532ca1
+    freq_push_sp 5d838c
+    freq_push_sp 37987b
+    freq_push_sp 323cfa
+    freq_push_sp c61b1
+    freq_push_sp 677c
+    freq_push_sp 25620
+    freq_push_sp 9effb
+    freq_push_sp 5432d
 exit
