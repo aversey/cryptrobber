@@ -2,8 +2,8 @@ module ia32/elf/begin.sts
 module cipher.sts
 
 set_entry
-    31 32 local password
-    2 as passlen
+    31 local password
+    1 as passlen
     passlen 1 - local pos
     do sys_read 0 = until
         password passlen pos cipher sys_write

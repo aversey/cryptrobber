@@ -51,11 +51,12 @@ defword checktext
             drop drop drop drop drop  drop drop drop drop drop  drop drop drop
         0 exit fi drop
     dup 0 = untilod drop
-; ZERO DIVISION SHALL NOT PASS
-checktext.count 0 = if drop
-    drop drop drop drop drop  drop drop drop drop drop  drop drop drop
-    drop drop drop drop drop  drop drop drop drop drop  drop drop drop
-0 exit fi
+    ; At least half characters in text should be alphabetical:
+    checktext.count float_iload checktext.length float_iload float_div
+    1 float_iload 2 float_iload float_div float_more if drop
+        drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+        drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+    0 exit fi
     ; normalize:
     0 do dup 1a = until
             dup word_size mul checktext.fr + dup @ float_iload
@@ -82,6 +83,7 @@ set_entry float_init ; this is program with floats
     do
         ; generate next key to try
         keygen as keylen local key
+        '.' sys_write_err
 
         ; decipher text (length is the same as for ciphertext)
         keylen 1 - length do 1 -
