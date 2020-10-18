@@ -3,6 +3,7 @@ module ia32/float/float.sts
 module cipher.sts
 module keygen.sts
 module freq.sts
+module bifreq.sts
 
 [ sd 0 swap drop ]
 
@@ -10,8 +11,20 @@ defword nicedist
     3e9eb852 float_fload
 exit
 
+defword zeros
+    do dup 0 = until
+        0 swap
+    1 - od drop
+exit
+
+defword clear
+    do dup 0 = until
+        swap drop
+    1 - od drop
+exit
+
 defword calcdist ; distance from ideal as sqrt sum square diff
-    1b ref as calcdist.textfr
+    2bf ref as calcdist.textfr
     local calcdist.fr
     0 do dup 1a = until
         dup word_size mul dup dup
@@ -23,16 +36,18 @@ defword calcdist ; distance from ideal as sqrt sum square diff
     0 do dup 19 = until
         swap float_fload swap float_fload float_add float_fstore swap
     1 + od drop
-    float_fload float_sqrt nicedist float_less
+    float_fload float_sqrt nicedist
+    2a4 clear float_less
 exit
 
 defword checktext
     as checktext.length
     local checktext.text
         ; Count frequencies:
+    ; 676 latin bigrams:
+    2a4 zeros local checktext.bifr
     ; 26 latin letters:
-    0 0 0 0 0  0 0 0 0 0  0 0 0
-    0 0 0 0 0  0 0 0 0 0  0 0 0 local checktext.fr
+    1a zeros local checktext.fr
     ; count how much of each letter is in text:
     0 local checktext.count
     checktext.length do 1 -
@@ -43,21 +58,16 @@ defword checktext
         fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
             dup 'Z' swap - word_size mul checktext.fr + dup @ 1 + swap !
             checktext.count @ 1 + checktext.count !
-        fi dup dup 8 > 0 = swap 1 < 0 = mul if drop drop drop
-            'x' sys_write_err
-            drop drop drop drop drop  drop drop drop drop drop  drop drop drop
-            drop drop drop drop drop  drop drop drop drop drop  drop drop drop
-        0 exit fi dup dup 1f > 0 = swap e < 0 = mul if drop drop drop
-            'U' sys_write_err
-            drop drop drop drop drop  drop drop drop drop drop  drop drop drop
-            drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+        fi dup dup 8 > 0 = swap 1 < 0 = mul if
+            2c1 clear
+        0 exit fi dup dup 1f > 0 = swap e < 0 = mul if
+            2c1 clear
         0 exit fi drop
     dup 0 = untilod drop
     ; At least 1/4 characters in text should be alphabetical:
     checktext.count @ float_iload checktext.length float_iload float_div
-    1 float_iload 4 float_iload float_div float_less if drop
-        drop drop drop drop drop  drop drop drop drop drop  drop drop drop
-        drop drop drop drop drop  drop drop drop drop drop  drop drop drop
+    1 float_iload 4 float_iload float_div float_less if
+        2bf clear
     0 exit fi
     ; normalize:
     0 do dup 1a = until
@@ -66,12 +76,11 @@ defword checktext
         float_div float_fstore swap !
     1 + od drop
         ; Decide if text is real:
-    freq_eng calcdist if 1 else
+    bifreq_eng freq_eng calcdist if 1 else
     0 fi
         ; Remove frequencies from stack:
-    sd
-    sd sd sd sd sd  sd sd sd sd sd  sd sd sd
-    sd sd sd sd sd  sd sd sd sd sd  sd sd sd
+    2be set
+    2be clear
 exit
 
 set_entry float_init ; this is program with floats
