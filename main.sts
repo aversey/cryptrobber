@@ -95,8 +95,8 @@ set_entry float_init ; this is program with floats
         dup 0 = untilod drop drop
         local plaintext
 
-        ; check deciphering attempt, exit if Ok or keylen = max (2)
-    keylen 2 = if eeeee else length checktext fi dup until drop
+        ; check deciphering attempt, exit if Ok or keylen = max (4)
+    keylen 4 = if eeeee else length checktext fi dup until drop
         ; else remove the text from stack and place keylen back
         0 do dup length = until
             swap drop 1 +
@@ -158,7 +158,10 @@ set_entry float_init ; this is program with floats
 
     ; output text
     length do 1 -
-        swap sys_write
+        dup word_size mul plaintext + @ sys_write
+    dup 0 = untilod drop
+    length do 1 -
+        swap drop
     dup 0 = untilod drop
 
     ; output key
