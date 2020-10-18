@@ -196,14 +196,14 @@ set_entry float_init ; this is program with floats
     ; output text
     length do 1 -
         dup word_size mul plaintext + @ sys_write
-    dup 0 = untilod drop
+    dup 1 = untilod drop
     length do 1 -
         swap drop
-    dup 0 = untilod drop
+    dup 1 = untilod drop
 
     ; output key
     keylen do 1 -
-        swap sys_write_err
+        dup word_size mul key + @ sys_write_err
     dup 0 = untilod drop newline sys_write_err
 sys_exit
 
