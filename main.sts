@@ -39,10 +39,10 @@ defword checktext
         dup word_size mul checktext.text + @
         dup dup 'z' > 0 = swap 'a' < 0 = mul if
             dup 'z' swap - word_size mul checktext.fr + dup @ 1 + swap !
-            checktext.count 1 + as checktext.count
+            checktext.count @ 1 + checktext.count !
         fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
             dup 'Z' swap - word_size mul checktext.fr + dup @ 1 + swap !
-            checktext.count 1 + as checktext.count
+            checktext.count @ 1 + checktext.count !
         fi dup dup 8 > 0 = swap 1 < 0 = mul if drop drop drop
             'x' sys_write_err
             drop drop drop drop drop  drop drop drop drop drop  drop drop drop
@@ -55,7 +55,7 @@ defword checktext
     dup 0 = untilod drop
     ; At least 1/4 characters in text should be alphabetical:
     checktext.count @ float_iload checktext.length float_iload float_div
-    1 float_iload 4 float_iload float_div float_more if drop
+    1 float_iload 4 float_iload float_div float_less if drop
         drop drop drop drop drop  drop drop drop drop drop  drop drop drop
         drop drop drop drop drop  drop drop drop drop drop  drop drop drop
     0 exit fi
@@ -99,8 +99,8 @@ set_entry float_init ; this is program with floats
         dup 0 = untilod drop drop
         local plaintext
 
-        ; check deciphering attempt, exit if Ok or keylen = max (4)
-    keylen 4 = if eeeee else length checktext fi dup until drop
+        ; check deciphering attempt, exit if Ok or keylen = max (2)
+    keylen 2 = if eeeee else length checktext fi dup until drop
         ; else remove the text from stack and place keylen back
         0 do dup length = until
             swap drop 1 +
