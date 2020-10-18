@@ -16,16 +16,15 @@ defword print_hex
     dup 8 shr get_hex sys_write
     dup 4 shr get_hex sys_write
     get_hex sys_write
-    a sys_write
 exit
 
 defword print_stack
     dup
     do
-    dup 0 = until
         over over - 2 + get print_hex
-        1 -
-    od
+    1 - dup 0 = until
+        space sys_write
+    od newline sys_write
     drop
     drop
 exit

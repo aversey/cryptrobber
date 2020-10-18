@@ -138,6 +138,7 @@ set_entry float_init ; this is program with floats
         0 do dup length = until
             swap drop 1 +
         od drop keylen
+        4 print_stack
     od as langcode drop
 
     ; output language
