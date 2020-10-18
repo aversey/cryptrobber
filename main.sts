@@ -8,7 +8,7 @@ module bifreq.sts
 [ sd 0 swap drop ]
 
 defword nicedist
-    3e9eb852 float_fload
+    1 float_iload 10 float_iload float_div
 exit
 
 defword zeros
@@ -36,7 +36,9 @@ defword calcdist ; distance from ideal as sqrt sum square diff
     0 do dup 2bd = until
         swap float_fload swap float_fload float_add float_fstore swap
     1 + od drop
-    float_fload float_sqrt nicedist float_less
+    float_fload float_sqrt
+    float_fstore dup print_hex newline sys_write float_fload
+    nicedist float_less
 exit
 
 defword checktext
@@ -54,29 +56,27 @@ defword checktext
     checktext.length do 1 -
         dup word_size mul checktext.text + @
         dup dup 'z' > 0 = swap 'a' < 0 = mul if
-            dup 'z' swap - word_size mul as checktext.i
-            checktext.i checktext.fr + @ 1 + checktext.i checktext.fr + !
+            dup 'z' swap - word_size mul local checktext.i
+            checktext.i @ checktext.fr + @ 1 + checktext.i @ checktext.fr + !
             checktext.count @ 1 + checktext.count !
             checktext.hadalpha @ if
                 checktext.bicount @ 1 + checktext.bicount !
-                    checktext.hadalpha 1 - 1a mul checktext.i +
+                    checktext.hadalpha @ 1 - 1a mul checktext.i @ +
                     checktext.bifr +
-                as checktext.bi
-                checktext.bi @ 1 + checktext.bi !
+                dup @ 1 + swap !
             fi
-            checktext.i 1 + checktext.hadalpha !
+            1 + checktext.hadalpha !
         else dup dup 'Z' > 0 = swap 'A' < 0 = mul if
-            dup 'Z' swap - word_size mul as checktext.i
-            checktext.i checktext.fr + @ 1 + checktext.i checktext.fr + !
+            dup 'Z' swap - word_size mul local checktext.i
+            checktext.i @ checktext.fr + @ 1 + checktext.i @ checktext.fr + !
             checktext.count @ 1 + checktext.count !
             checktext.hadalpha @ if
                 checktext.bicount @ 1 + checktext.bicount !
-                    checktext.hadalpha 1 - 1a mul checktext.i +
+                    checktext.hadalpha @ 1 - 1a mul checktext.i @ +
                     checktext.bifr +
-                as checktext.bi
-                checktext.bi @ 1 + checktext.bi !
+                dup @ 1 + swap !
             fi
-            checktext.i 1 + checktext.hadalpha !
+            1 + checktext.hadalpha !
         else 0 checktext.hadalpha ! dup dup 8 > 0 = swap 1 < 0 = mul if
             2c3 clear
         0 exit fi dup dup 1f > 0 = swap e < 0 = mul if
@@ -88,6 +88,8 @@ defword checktext
     1 float_iload 4 float_iload float_div float_less if
         2c1 clear
     0 exit fi
+    ; Division by zero shall not pass:
+    checktext.bicount 0 = if 2c1 clear 0 exit fi
     ; normalize:
     0 do dup 1a = until
             dup word_size mul checktext.fr + dup @ float_iload
@@ -132,13 +134,12 @@ set_entry float_init ; this is program with floats
         dup 0 = untilod drop drop
         local plaintext
 
-        ; check deciphering attempt, exit if Ok or keylen = max (2)
-    keylen 2 = if eeeee else length checktext fi dup until drop
+        ; check deciphering attempt, exit if Ok or keylen = max (3)
+    keylen 3 = if eeeee else length checktext fi dup until drop
         ; else remove the text from stack and place keylen back
         0 do dup length = until
             swap drop 1 +
         od drop keylen
-        4 print_stack
     od as langcode drop
 
     ; output language
