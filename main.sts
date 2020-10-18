@@ -24,20 +24,19 @@ defword clear
 exit
 
 defword calcdist ; distance from ideal as sqrt sum square diff
-    2bf ref as calcdist.textfr
+    2c1 ref as calcdist.textfr
     local calcdist.fr
-    0 do dup 1a = until
+    0 do dup 2be = until
         dup word_size mul dup dup
                 calcdist.fr + @ float_fload
                 calcdist.textfr + @ float_fload
             float_sub float_fstore dup float_fload float_fload
         float_mul float_fstore swap calcdist.fr + !
     1 + od
-    0 do dup 19 = until
+    0 do dup 2bd = until
         swap float_fload swap float_fload float_add float_fstore swap
     1 + od drop
-    float_fload float_sqrt nicedist
-    2a4 clear float_less
+    float_fload float_sqrt nicedist float_less
 exit
 
 defword checktext
@@ -49,25 +48,45 @@ defword checktext
     ; 26 latin letters:
     1a zeros local checktext.fr
     ; count how much of each letter is in text:
+    0 local checktext.hadalpha
+    0 local checktext.bicount
     0 local checktext.count
     checktext.length do 1 -
         dup word_size mul checktext.text + @
         dup dup 'z' > 0 = swap 'a' < 0 = mul if
-            dup 'z' swap - word_size mul checktext.fr + dup @ 1 + swap !
+            dup 'z' swap - word_size mul as checktext.i
+            checktext.i checktext.fr + @ 1 + checktext.i checktext.fr + !
             checktext.count @ 1 + checktext.count !
-        fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
-            dup 'Z' swap - word_size mul checktext.fr + dup @ 1 + swap !
+            checktext.hadalpha @ if
+                checktext.bicount @ 1 + checktext.bicount !
+                    checktext.hadalpha 1 - 1a mul checktext.i +
+                    checktext.bifr +
+                as checktext.bi
+                checktext.bi @ 1 + checktext.bi !
+            fi
+            checktext.i 1 + checktext.hadalpha !
+        else dup dup 'Z' > 0 = swap 'A' < 0 = mul if
+            dup 'Z' swap - word_size mul as checktext.i
+            checktext.i checktext.fr + @ 1 + checktext.i checktext.fr + !
             checktext.count @ 1 + checktext.count !
-        fi dup dup 8 > 0 = swap 1 < 0 = mul if
-            2c1 clear
+            checktext.hadalpha @ if
+                checktext.bicount @ 1 + checktext.bicount !
+                    checktext.hadalpha 1 - 1a mul checktext.i +
+                    checktext.bifr +
+                as checktext.bi
+                checktext.bi @ 1 + checktext.bi !
+            fi
+            checktext.i 1 + checktext.hadalpha !
+        else 0 checktext.hadalpha ! dup dup 8 > 0 = swap 1 < 0 = mul if
+            2c3 clear
         0 exit fi dup dup 1f > 0 = swap e < 0 = mul if
-            2c1 clear
-        0 exit fi drop
+            2c3 clear
+        0 exit fi fi fi drop
     dup 0 = untilod drop
     ; At least 1/4 characters in text should be alphabetical:
     checktext.count @ float_iload checktext.length float_iload float_div
     1 float_iload 4 float_iload float_div float_less if
-        2bf clear
+        2c1 clear
     0 exit fi
     ; normalize:
     0 do dup 1a = until
@@ -75,12 +94,17 @@ defword checktext
             checktext.count @ float_iload
         float_div float_fstore swap !
     1 + od drop
+    0 do dup 2a4 = until
+            dup word_size mul checktext.bifr + dup @ float_iload
+            checktext.bicount @ float_iload
+        float_div float_fstore swap !
+    1 + od drop
         ; Decide if text is real:
     bifreq_eng freq_eng calcdist if 1 else
     0 fi
         ; Remove frequencies from stack:
-    2be set
-    2be clear
+    2c0 set
+    2c0 clear
 exit
 
 set_entry float_init ; this is program with floats
