@@ -39,21 +39,23 @@ defword checktext
         dup word_size mul checktext.text + @
         dup dup 'z' > 0 = swap 'a' < 0 = mul if
             dup 'z' swap - word_size mul checktext.fr + dup @ 1 + swap !
-            checktext.count @ 1 + checktext.count !
+            checktext.count 1 + as checktext.count
         fi dup dup 'Z' > 0 = swap 'A' < 0 = mul if
             dup 'Z' swap - word_size mul checktext.fr + dup @ 1 + swap !
-            checktext.count @ 1 + checktext.count !
+            checktext.count 1 + as checktext.count
         fi dup dup 8 > 0 = swap 1 < 0 = mul if drop drop drop
+            'x' sys_write_err
             drop drop drop drop drop  drop drop drop drop drop  drop drop drop
             drop drop drop drop drop  drop drop drop drop drop  drop drop drop
         0 exit fi dup dup 1f > 0 = swap e < 0 = mul if drop drop drop
+            'U' sys_write_err
             drop drop drop drop drop  drop drop drop drop drop  drop drop drop
             drop drop drop drop drop  drop drop drop drop drop  drop drop drop
         0 exit fi drop
     dup 0 = untilod drop
-    ; At least half characters in text should be alphabetical:
-    checktext.count float_iload checktext.length float_iload float_div
-    1 float_iload 2 float_iload float_div float_more if drop
+    ; At least 1/4 characters in text should be alphabetical:
+    checktext.count @ float_iload checktext.length float_iload float_div
+    1 float_iload 4 float_iload float_div float_more if drop
         drop drop drop drop drop  drop drop drop drop drop  drop drop drop
         drop drop drop drop drop  drop drop drop drop drop  drop drop drop
     0 exit fi
