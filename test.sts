@@ -1,10 +1,10 @@
 module ia32/elf/begin.sts
 module ia32/float/float.sts
-module freq.sts
+module bifreq.sts
 
 set_entry
-    freq_eng
-    20 print_stack
+    bifreq_eng
+    300 print_stack
 sys_exit
 
 module ia32/elf/end.sts
