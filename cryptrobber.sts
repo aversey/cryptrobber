@@ -124,6 +124,15 @@ set_entry float_init ; this is program with floats
         swap 1 +
     od drop as length
     local ciphertext
+    length 0 = if
+        'e' sys_write_err
+        'm' sys_write_err
+        'p' sys_write_err
+        't' sys_write_err
+        'y' sys_write_err
+        newline sys_write_err
+        sys_exit
+    fi
 
     0 ; initial key is empty
     do
