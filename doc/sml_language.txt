@@ -1,0 +1,167 @@
+-= Overview
+
+This document describes language used by cryptrobber and encrypt programs.
+Further this language will be referenced as SML (Stack Machine Language).
+"Strans" binary stack translator and "Smack" macroprocessor are used for
+translating SML program into ELF executable file. This document DOES NOT
+describe low level realisation of SML programs. For more information about
+methods envolved into this process you can refer to the "Threaded code" and
+"Call stack" topics.
+
+SML is a standard stack language. Every word (SML function) is executed in
+postfix notation. Even SML numbers are treated as words. For example:
+
+    4 5 + sys_write
+
+"4", "5", "+", "sys_write" are SML words. First, executing "4" will push
+nubmer 4 into the stack. Executing "5" will push number 5 into stack.
+Executing "+" will pop two numbers from stack (4 and 5), summarize them
+and push the result into stack (9). Executing "sys_write" will pop number
+from the stack (9) and print it.
+
+Further text will describe all basic SML macros and words in details.
+" filename ", * macro *, / word / designations are used to distinguish
+between different entities.
+
+-= IA32 macros and words
+
+" macro.sts "
+
+* next *
+Finishes assembler word description.
+
+* defasm *
+Begins assembler word description.
+
+* defword *
+Begins standard SML word description.
+
+* defconst *
+Describes constant number SML word.
+
+* defarr *
+Describes number array SML word.
+
+* defvar *
+Describes number variable SML word.
+
+* as *
+Links the name with the top value from stack.
+
+* literal *
+Used for transparent translation of numbers. It is a part of
+"Smack" macroprocessor, so there is no need to call it expicitly.
+
+* set_entry *
+Defines ELF executable entry point.
+
+* if *, * fi *, * else *
+These macros are used to describe conditional block.
+
+* do *, * untilod *, * until *, * od *
+These macros are used to describe conditional loop block.
+
+" core.sts "
+
+/ docol /
+SML word interpreter. It is used by "defword" macro to include in every
+SML word header for it's execution.
+
+/ exit /
+Finishes SML word execution.
+
+/ lit /
+SML number interpreter. It is used by "literal" macro.
+
+" stack.sts "
+
+/ top /
+Pushes the address of top of stack.
+
+/ ref /
+Pops the number of chosen stack element and pushes the address
+of this element.
+
+/ get /
+Pops the number of chosen stack element and pushes its value.
+
+/ set /
+Pops the value and the number of chosen stack element and changes
+the value of this element.
+
+/ drop /
+Pops the top stack element.
+
+/ dup /
+Pushes the copy of the top stack element.
+
+/ over /
+Pushes the copy of stack element over the top stack element.
+
+/ swap /
+Swaps two top stack elements.
+
+" branch.sts "
+
+/ branch /
+Changes the execution flow to the chosen address.
+
+/ 0branch /
+Conditional branch. Changes the execution flow to the chosen address
+but only if the value of the top stack element is zero.
+
+" memory.sts "
+
+/ @ /
+Replaces the address on top of stack by its value in memory.
+
+/ ! /
+Pops the address and the value from stack. Assigns this value to memory
+referenced by the chosen address.
+
+" math.sts "
+
+/ + /
+Adds two numbers from stack and pushes the result.
+
+/ - /
+Subtracts two numbers from stack and pushes the result.
+
+/ mul /
+Multiplies two numbers from stack and pushes the result.
+
+/ div /
+Divides two numbers from stack and pushes the result.
+
+/ mod /
+Divides two numbers from stack and pushes the modulo.
+
+/ = /
+Compares two numbers from stack for equality and pushes the result.
+
+/ != /
+Compares two numbers from stack for inequality and pushes the result.
+
+/ < /
+Compares two numbers from stack. Pushes "1" if the first
+is less than the second.
+
+/ > /
+Compares two numbers from stack. Pushes "1" if the first
+is greater than the second.
+
+" bitwise.sts "
+
+/ xor /
+Pops two numbers, applies XOR operation to them and pushes the result.
+
+/ and /
+Pops two numbers, applies AND operation to them and pushes the result.
+
+/ shr /
+Pops the counter and the value. Shifts right the value with the counter and
+pushes the result.
+
+/ shl /
+Pops the counter and the value. Shifts left the value with the counter and
+pushes the result.
