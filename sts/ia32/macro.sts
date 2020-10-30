@@ -1,5 +1,6 @@
 [ next 0
-    # ad ?' # ff ?' # 20 ?'
+    # ad ?'                             ; lodsd
+    # ff ?' # 20 ?'                     ; jmp dword [eax]
 ]
 
 [ defasm 1
