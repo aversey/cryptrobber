@@ -50,13 +50,13 @@ struct operator
 #define ERROR_STATUS_STACK_EMPTY 2
 #define ERROR_STATUS_ID_LIST_OVERFLOW 3
 #define ERROR_STATUS_SEG_LIST_OVERFLOW 4
-#define ERROR_STATUS_INVALID_SEGMENT 5
-#define ERROR_STATUS_WORD_BUFFER_OVERFLOW 6
-#define ERROR_STATUS_LEXEM_OVERFLOW 7
-#define ERROR_STATUS_UNDEFINED 8
-#define ERROR_STATUS_INVALID_ACCESS 9
-#define ERROR_STATUS_INVALID_WORD_SIZE 10
-#define ERROR_STATUS_WORD_ENDIANNESS_INVALID 11
+#define ERROR_STATUS_SEG_BUFFER_OVERFLOW 5
+#define ERROR_STATUS_SEG_INVALID 6
+#define ERROR_STATUS_SEG_ACCESS_INVALID 7
+#define ERROR_STATUS_LEXEM_OVERFLOW 8
+#define ERROR_STATUS_LEXEM_UNDEFINED 9
+#define ERROR_STATUS_DATA_SIZE_INVALID 10
+#define ERROR_STATUS_DATA_ENDIANNESS_INVALID 11
 
 const char *error_msgs[] =
 {
@@ -64,13 +64,13 @@ const char *error_msgs[] =
 	"Stack is empty",
 	"Identifier list overflow",
 	"Segment list overflow",
-	"Invalid chosen segment",
-	"Word buffer overflow",
-	"Lexem is too big",
-	"Undefined lexem: ",
-	"Invalid segment access",
-	"Invalid segment data size",
-	"Invalid segment data endianness"
+	"Segment buffer overflow",
+	"Segment is invalid",
+	"Segment access is invalid",
+	"Lexem size overflow",
+	"Lexem is undefined: ",
+	"Segment data size is invalid",
+	"Segment data endianness is invalid"
 };
 
 void exit_error(int status, const char *lexem)
@@ -111,7 +111,7 @@ struct segment *get_segment(struct environment *env)
 	while(chosen_segment && segment_counter--)
 		chosen_segment = chosen_segment->next;
 	if(!chosen_segment)
-		exit_error(ERROR_STATUS_INVALID_SEGMENT, NULL);
+		exit_error(ERROR_STATUS_SEG_INVALID, NULL);
 	return chosen_segment;
 }
 
@@ -279,7 +279,7 @@ void segment_compile_byte(struct environment *env, char byte)
 	if(index == get_segment(env)->real_size)
 		if(!double_buffer(&get_segment(env)->buffer,
 			&get_segment(env)->real_size))
-			exit_error(ERROR_STATUS_WORD_BUFFER_OVERFLOW, NULL);
+			exit_error(ERROR_STATUS_SEG_BUFFER_OVERFLOW, NULL);
 	get_segment(env)->buffer[index] = byte;
 	get_segment(env)->size++;
 	get_segment(env)->pointer_address++;
@@ -302,7 +302,7 @@ unsigned long long convert_address(struct environment *env,
 	unsigned long long base_address = get_segment(env)->base_address;
 	unsigned long long base_offset = get_segment(env)->base_offset;
 	if(address < base_address || address + size > pointer_address)
-		exit_error(ERROR_STATUS_INVALID_ACCESS, NULL);
+		exit_error(ERROR_STATUS_SEG_ACCESS_INVALID, NULL);
 	return address - base_address + base_offset;
 }
 
@@ -526,13 +526,13 @@ void translator_set_base(struct environment *env)
 	get_segment(env)->base_offset = get_segment(env)->size;
 }
 
-#define WORD_SIZE_MAX 8
+#define DATA_SIZE_MAX 8
 
 void translator_set_data_size(struct environment *env)
 {
 	int target_size = pop_stack_elem(&env->stack);
-	if(target_size <= 0 || target_size > WORD_SIZE_MAX)
-		exit_error(ERROR_STATUS_INVALID_WORD_SIZE, NULL);
+	if(target_size <= 0 || target_size > DATA_SIZE_MAX)
+		exit_error(ERROR_STATUS_DATA_SIZE_INVALID, NULL);
 	get_segment(env)->data_size = target_size;
 }
 
@@ -540,7 +540,7 @@ void translator_set_data_endianness(struct environment *env)
 {
 	int endianness = pop_stack_elem(&env->stack);
 	if(endianness > 1)
-		exit_error(ERROR_STATUS_WORD_ENDIANNESS_INVALID, NULL);
+		exit_error(ERROR_STATUS_DATA_ENDIANNESS_INVALID, NULL);
 	get_segment(env)->data_endianness = endianness;
 }
 
@@ -643,7 +643,7 @@ int main()
 		if(is_lexem_hex(&env, lexem))
 			continue;
 		if(!execute_operator(&env, lexem))
-			exit_error(ERROR_STATUS_UNDEFINED, lexem);
+			exit_error(ERROR_STATUS_LEXEM_UNDEFINED, lexem);
 	}
 
 	print_target_buffer(&env);
