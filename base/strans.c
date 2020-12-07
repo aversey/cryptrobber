@@ -252,7 +252,7 @@ void add_identifier(struct identifier **id_list, const char *lexem,
 {
 	struct identifier *head = *id_list;
 	*id_list = malloc(sizeof(struct identifier));
-	if(!id_list)
+	if(!*id_list)
 		exit_error(ERROR_STATUS_ID_LIST_OVERFLOW, NULL);
 	(*id_list)->lexem = lexem;
 	(*id_list)->value = value;
